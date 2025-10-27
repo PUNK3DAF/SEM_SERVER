@@ -4,6 +4,11 @@
  */
 package controller;
 
+import domen.Administrator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import operacije.login.LoginOperacija;
+
 /**
  *
  * @author vldmrk
@@ -20,6 +25,17 @@ public class Controller {
             instanca = new Controller();
         }
         return instanca;
+    }
+
+    public Administrator login(Administrator a) {
+        LoginOperacija operacija = new LoginOperacija();
+        try {
+            operacija.izvrsi(a, null);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("KLASA CONTROLLER ZAPOSLENI: " + operacija.getA());
+        return operacija.getA();
     }
 
 }

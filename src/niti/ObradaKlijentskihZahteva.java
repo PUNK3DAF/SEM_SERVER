@@ -4,6 +4,7 @@
  */
 package niti;
 
+import domen.Administrator;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -36,10 +37,12 @@ public class ObradaKlijentskihZahteva extends Thread {
             Zahtev zahtev = (Zahtev) primalac.primi();
             Odgovor odgovor = new Odgovor();
             switch (zahtev.getOperacija()) {
-//                case val:
-//
-//                    break;
-                default:
+                case LOGIN -> {
+                    Administrator a = (Administrator) zahtev.getParametar();
+                    a = controller.Controller.getInstanca().login(a);
+                    odgovor.setOdgovor(a);
+                }
+                default ->
                     System.out.println("GRESKA");
             }
             posiljalac.posalji(odgovor);
