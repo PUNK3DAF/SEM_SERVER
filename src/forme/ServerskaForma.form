@@ -109,6 +109,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="POKRENI SERVER"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPokreniActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -117,7 +120,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelStatus">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nije pokrenut"/>
+        <Property name="text" type="java.lang.String" value="Zaustavljen"/>
       </Properties>
     </Component>
   </SubComponents>

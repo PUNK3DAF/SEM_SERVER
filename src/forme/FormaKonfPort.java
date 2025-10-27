@@ -4,6 +4,8 @@
  */
 package forme;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vldmrk
@@ -16,6 +18,7 @@ public class FormaKonfPort extends javax.swing.JDialog {
     public FormaKonfPort(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTextFieldPort.setText(konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("port"));
     }
 
     /**
@@ -36,6 +39,11 @@ public class FormaKonfPort extends javax.swing.JDialog {
         jLabel1.setText("Port:");
 
         jButtonSacuvaj.setText("SACUVAJ");
+        jButtonSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSacuvajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,48 +75,28 @@ public class FormaKonfPort extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSacuvajActionPerformed
+        int port;
+        try {
+            port = Integer.parseInt(jTextFieldPort.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "PORT MORA DA BUDE BROJ!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (port >= 0 && port <= 65535) {
+            konfiguracija.Konfiguracija.getInstanca().setKonfiguracija("port", String.valueOf(port));
+            konfiguracija.Konfiguracija.getInstanca().sacuvajIzmene();
+            JOptionPane.showMessageDialog(this, "PARAMETAR JE SACUVAN!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "NEPRAVILNA VREDNOST PORTA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButtonSacuvajActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfPort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfPort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfPort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfPort.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormaKonfPort dialog = new FormaKonfPort(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSacuvaj;
     private javax.swing.JLabel jLabel1;

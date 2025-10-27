@@ -4,6 +4,8 @@
  */
 package forme;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vldmrk
@@ -16,6 +18,10 @@ public class FormaKonfBaza extends javax.swing.JDialog {
     public FormaKonfBaza(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTextFieldURL.setText(konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("url"));
+        jTextFieldUsername.setText(konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("username"));
+        jPasswordField1.setText(konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("password"));
+
     }
 
     /**
@@ -44,6 +50,11 @@ public class FormaKonfBaza extends javax.swing.JDialog {
         jLabel3.setText("Password:");
 
         jButton1.setText("SACUVAJ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,48 +104,23 @@ public class FormaKonfBaza extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String url = jTextFieldURL.getText();
+        String username = jTextFieldUsername.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+
+        konfiguracija.Konfiguracija.getInstanca().setKonfiguracija("url", url);
+        konfiguracija.Konfiguracija.getInstanca().setKonfiguracija("username", username);
+        konfiguracija.Konfiguracija.getInstanca().setKonfiguracija("password", password);
+
+        konfiguracija.Konfiguracija.getInstanca().sacuvajIzmene();
+        JOptionPane.showMessageDialog(this, "Parametri su sacuvani!", "USPESNO", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfBaza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfBaza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfBaza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfBaza.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormaKonfBaza dialog = new FormaKonfBaza(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

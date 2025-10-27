@@ -4,17 +4,23 @@
  */
 package forme;
 
+import server.Server;
+
 /**
  *
  * @author vldmrk
  */
 public class ServerskaForma extends javax.swing.JFrame {
 
+    Server server;
+
     /**
      * Creates new form ServerskaForma
      */
     public ServerskaForma() {
         initComponents();
+        server = new Server();
+        jButtonZaustavi.setEnabled(false);
     }
 
     /**
@@ -45,10 +51,15 @@ public class ServerskaForma extends javax.swing.JFrame {
         });
 
         jButtonPokreni.setText("POKRENI SERVER");
+        jButtonPokreni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPokreniActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Status:");
 
-        jLabelStatus.setText("Nije pokrenut");
+        jLabelStatus.setText("Zaustavljen");
 
         jMenu1.setText("File");
 
@@ -113,7 +124,10 @@ public class ServerskaForma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonZaustaviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZaustaviActionPerformed
-        // TODO add your handling code here:
+        server.zaustaviServer();
+        jLabelStatus.setText("Zaustavljen");
+        jButtonPokreni.setEnabled(true);
+        jButtonZaustavi.setEnabled(false);
     }//GEN-LAST:event_jButtonZaustaviActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -126,41 +140,16 @@ public class ServerskaForma extends javax.swing.JFrame {
         port.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jButtonPokreniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPokreniActionPerformed
+        server.start();
+        jLabelStatus.setText("Pokrenut");
+        jButtonPokreni.setEnabled(false);
+        jButtonZaustavi.setEnabled(true);
+    }//GEN-LAST:event_jButtonPokreniActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServerskaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ServerskaForma().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPokreni;
     private javax.swing.JButton jButtonZaustavi;

@@ -64,6 +64,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="SACUVAJ"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSacuvajActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
