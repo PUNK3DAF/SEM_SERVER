@@ -35,15 +35,21 @@ public class ObradaKlijentskihZahteva extends Thread {
     public void run() {
         while (!kraj) {
             Zahtev zahtev = (Zahtev) primalac.primi();
+            if (zahtev == null) {
+                // Klijent je zatvorio konekciju ili je došlo do greške pri čitanju; prekinuti nit
+                prekini();
+                break;
+            }
             Odgovor odgovor = new Odgovor();
             switch (zahtev.getOperacija()) {
-                case LOGIN -> {
+                case LOGIN:
                     Administrator a = (Administrator) zahtev.getParametar();
                     a = controller.Controller.getInstanca().login(a);
                     odgovor.setOdgovor(a);
-                }
-                default ->
+                    break;
+                default:
                     System.out.println("GRESKA");
+                    break;
             }
             posiljalac.posalji(odgovor);
         }
@@ -51,6 +57,18 @@ public class ObradaKlijentskihZahteva extends Thread {
 
     public void prekini() {
         kraj = true;
+        // zatvori streamove prvo
+        try {
+            if (posiljalac != null) {
+                posiljalac.close();
+            }
+            if (primalac != null) {
+                primalac.close();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.FINE, null, ex);
+        }
+
         try {
             socket.close();
         } catch (IOException ex) {

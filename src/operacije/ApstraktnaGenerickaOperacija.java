@@ -29,7 +29,6 @@ public abstract class ApstraktnaGenerickaOperacija {
             ponistiTransakciju();
             throw e;
         } finally {
-            ugasiKonekciju();
         }
     }
 
@@ -49,7 +48,4 @@ public abstract class ApstraktnaGenerickaOperacija {
         ((DbRepository) broker).rollback();
     }
 
-    private void ugasiKonekciju() throws Exception {
-        ((DbRepository) broker).disconnect();
-    }
 }

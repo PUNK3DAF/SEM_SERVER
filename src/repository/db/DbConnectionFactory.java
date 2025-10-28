@@ -20,21 +20,7 @@ public class DbConnectionFactory {
     private Connection connection;
 
     private DbConnectionFactory() {
-        try {
-            if (connection == null || connection.isClosed()) {
-                String url = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("url");
-                String user = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("username");
-                String pass = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("password");
-                try {
-                    connection = DriverManager.getConnection(url, user, pass);
-                    connection.setAutoCommit(false);
-                } catch (SQLException ex) {
-                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 
     public static DbConnectionFactory getInstanca() {
@@ -45,8 +31,35 @@ public class DbConnectionFactory {
         return instanca;
     }
 
-    public Connection getConnection() {
+    public synchronized Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                String url = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("url");
+                String user = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("username");
+                String pass = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("password");
+                try {
+                    connection = DriverManager.getConnection(url, user, pass);
+                    connection.setAutoCommit(false);
+                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.INFO, "DB connection opened/reopened");
+                } catch (SQLException ex) {
+                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, "Failed to open DB connection", ex);
+                    // propagation optional — vratiti null ili baciti runtime; ovde logujemo i vraćamo null
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return connection;
     }
 
+    public synchronized void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null;
+            } catch (SQLException ex) {
+                Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

@@ -21,7 +21,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
     @Override
     public List<ApstraktniDomenskiObjekat> getAll(ApstraktniDomenskiObjekat param, String uslov) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        String upit = "SELECT FROM " + param.vratiNazivTabele();
+        String upit = "SELECT * FROM " + param.vratiNazivTabele();
         if (uslov != null) {
             upit += uslov;
         }
