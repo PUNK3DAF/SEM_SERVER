@@ -45,7 +45,8 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
 
     @Override
     public void edit(ApstraktniDomenskiObjekat param) throws Exception {
-        String upit = "UPDATE " + param.vratiNazivTabele() + " SET " + param.vratiVrednostiZaIzmenu();
+        String upit = "UPDATE " + param.vratiNazivTabele() + " SET " + param.vratiVrednostiZaIzmenu()
+                + " WHERE " + param.vratiPrimarniKljuc();
         System.out.println(upit);
         Statement st = DbConnectionFactory.getInstanca().getConnection().createStatement();
         st.executeUpdate(upit);

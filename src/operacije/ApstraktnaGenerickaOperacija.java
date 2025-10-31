@@ -41,11 +41,27 @@ public abstract class ApstraktnaGenerickaOperacija {
     }
 
     private void potvrdiTransakciju() throws Exception {
-        ((DbRepository) broker).commit();
+        try {
+            System.out.println("SERVER DEBUG: POKUSAJ COMMIT-a transakcije...");
+            ((DbRepository) broker).commit();
+            System.out.println("SERVER DEBUG: COMMIT uspesno izveden.");
+        } catch (Exception ex) {
+            System.err.println("SERVER DEBUG: GREŠKA prilikom COMMIT-a, baca se izuzetak i pokreće rollback.");
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
     private void ponistiTransakciju() throws Exception {
-        ((DbRepository) broker).rollback();
+        try {
+            System.err.println("SERVER DEBUG: POČINJEM ROLLBACK transakcije...");
+            ((DbRepository) broker).rollback();
+            System.err.println("SERVER DEBUG: ROLLBACK završen.");
+        } catch (Exception ex) {
+            System.err.println("SERVER DEBUG: GREŠKA prilikom ROLLBACK-a.");
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
 }

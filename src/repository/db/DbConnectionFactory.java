@@ -38,6 +38,7 @@ public class DbConnectionFactory {
                 String user = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("username");
                 String pass = konfiguracija.Konfiguracija.getInstanca().getKonfiguracija("password");
                 try {
+                    System.out.println("SERVER DEBUG: konektujem na DB url=" + url + " user=" + user);
                     connection = DriverManager.getConnection(url, user, pass);
                     connection.setAutoCommit(false);
                     Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.INFO, "DB connection opened/reopened");

@@ -5,8 +5,12 @@
 package niti;
 
 import domen.Administrator;
+import domen.Ansambl;
+import domen.ClanDrustva;
+import domen.Ucesce;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import komunikacija.Odgovor;
@@ -24,6 +28,7 @@ public class ObradaKlijentskihZahteva extends Thread {
     Posiljalac posiljalac;
     Primalac primalac;
     boolean kraj = false;
+    private Administrator prijavljeniAdmin;
 
     public ObradaKlijentskihZahteva(Socket socket) {
         this.socket = socket;
@@ -36,28 +41,137 @@ public class ObradaKlijentskihZahteva extends Thread {
         while (!kraj) {
             Zahtev zahtev = (Zahtev) primalac.primi();
             if (zahtev == null) {
-                // Klijent je zatvorio konekciju ili je došlo do greške pri čitanju; prekinuti nit
                 prekini();
                 break;
             }
             Odgovor odgovor = new Odgovor();
-            switch (zahtev.getOperacija()) {
-                case LOGIN:
-                    Administrator a = (Administrator) zahtev.getParametar();
-                    a = controller.Controller.getInstanca().login(a);
-                    odgovor.setOdgovor(a);
-                    break;
-                default:
-                    System.out.println("GRESKA");
-                    break;
+            try {
+                switch (zahtev.getOperacija()) {
+                    case ADMIN_LOGIN:
+                        Administrator a = (Administrator) zahtev.getParametar();
+                        a = controller.Controller.getInstanca().login(a);
+                        odgovor.setOdgovor(a);
+                        if (a != null) {
+                            this.prijavljeniAdmin = a;
+                        }
+                        break;
+                    case UCITAJ_ANSAMBLE:
+                        List<Ansambl> ansambli = controller.Controller.getInstanca().ucitajAnsamble();
+                        odgovor.setOdgovor(ansambli);
+                        break;
+                    case OBRISI_ANSAMBL:
+                        Ansambl an = (Ansambl) zahtev.getParametar();
+                        // permission check: samo admin koji je vlasnik ansambla sme obrisati
+                        Ansambl dbAn = controller.Controller.getInstanca().getAnsamblById(an.getAnsamblID());
+                        if (dbAn == null) {
+                            odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
+                        } else if (prijavljeniAdmin == null || dbAn.getAdmin() == null
+                                || dbAn.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
+                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da obrisete ovaj ansambl."));
+                        } else {
+                            controller.Controller.getInstanca().obrisiAnsambl(an);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case DODAJ_ANSAMBL:
+                        Ansambl ans = (Ansambl) zahtev.getParametar();
+                        controller.Controller.getInstanca().dodajAnsambl(ans);
+                        odgovor.setOdgovor(null);
+                        break;
+                    case AZURIRAJ_ANSAMBL:
+                        Ansambl ansa = (Ansambl) zahtev.getParametar();
+                        Ansambl dbAn2 = controller.Controller.getInstanca().getAnsamblById(ansa.getAnsamblID());
+                        if (dbAn2 == null) {
+                            odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
+                        } else if (prijavljeniAdmin == null || dbAn2.getAdmin() == null
+                                || dbAn2.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
+                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da azurirate ovaj ansambl."));
+                        } else {
+                            controller.Controller.getInstanca().azurirajAnsambl(ansa);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case UCITAJ_CLANOVE:
+                        List<ClanDrustva> clanovi = controller.Controller.getInstanca().ucitajClanove();
+                        odgovor.setOdgovor(clanovi);
+                        break;
+                    case OBRISI_CLAN:
+                        ClanDrustva c = (ClanDrustva) zahtev.getParametar();
+                        ClanDrustva dbC = controller.Controller.getInstanca().getClanById(c.getClanID());
+                        if (dbC == null) {
+                            odgovor.setOdgovor(new Exception("Clan ne postoji."));
+                        } else if (prijavljeniAdmin == null || dbC.getAdmin() == null
+                                || dbC.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
+                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da obrisete ovog clana."));
+                        } else {
+                            controller.Controller.getInstanca().obrisiClan(c);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case DODAJ_CLAN:
+                        ClanDrustva cl = (ClanDrustva) zahtev.getParametar();
+                        controller.Controller.getInstanca().dodajClan(cl);
+                        odgovor.setOdgovor(null);
+                        break;
+                    case AZURIRAJ_CLAN:
+                        ClanDrustva cln = (ClanDrustva) zahtev.getParametar();
+                        ClanDrustva dbCln = controller.Controller.getInstanca().getClanById(cln.getClanID());
+                        if (dbCln == null) {
+                            odgovor.setOdgovor(new Exception("Clan ne postoji."));
+                        } else if (prijavljeniAdmin == null || dbCln.getAdmin() == null
+                                || dbCln.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
+                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da azurirate ovog clana."));
+                        } else {
+                            controller.Controller.getInstanca().azurirajClan(cln);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case UCITAJ_UCESCA:
+                        List<Ucesce> ucesca = controller.Controller.getInstanca().ucitajUcesca();
+                        odgovor.setOdgovor(ucesca);
+                        break;
+                    case DODAJ_ANSAMBL_SA_SASTAVOM:
+                        Ansambl ansSa = (Ansambl) zahtev.getParametar();
+                        controller.Controller.getInstanca().dodajAnsamblSaSastavom(ansSa);
+                        odgovor.setOdgovor(null);
+                        break;
+                    case AZURIRAJ_SASTAV_ANSAMBLA:
+                        Ansambl ansUpd = (Ansambl) zahtev.getParametar();
+                        controller.Controller.getInstanca().azurirajSastavAnsambla(ansUpd);
+                        odgovor.setOdgovor(null);
+                        break;
+                    case NADJI_CLANOVE:
+                        String trazena = (String) zahtev.getParametar();
+                        List<ClanDrustva> nadjeni = controller.Controller.getInstanca().nadjiClanove(trazena);
+                        odgovor.setOdgovor(nadjeni);
+                        break;
+                    case UCITAJ_CLANA:
+                        ClanDrustva probe = (ClanDrustva) zahtev.getParametar();
+                        ClanDrustva found = controller.Controller.getInstanca().getClanById(probe.getClanID());
+                        odgovor.setOdgovor(found);
+                        break;
+                    default:
+                        System.out.println("GRESKA");
+                        odgovor.setOdgovor(new Exception("Nepoznata operacija na serveru"));
+                        break;
+                }
+            } catch (Exception ex) {
+                odgovor.setOdgovor(ex);
+                Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
             }
-            posiljalac.posalji(odgovor);
+            try {
+                System.out.println("SERVER DEBUG: saljem odgovor klijentu za operaciju " + zahtev.getOperacija());
+                posiljalac.posalji(odgovor);
+                System.out.println("SERVER DEBUG: odgovor poslat.");
+            } catch (Exception ioEx) {
+                System.err.println("SERVER DEBUG: greska prilikom slanja odgovora klijentu:");
+                ioEx.printStackTrace();
+            }
         }
     }
 
     public void prekini() {
         kraj = true;
-        // zatvori streamove prvo
         try {
             if (posiljalac != null) {
                 posiljalac.close();

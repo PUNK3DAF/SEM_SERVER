@@ -61,7 +61,7 @@ public class ServerskaForma extends javax.swing.JFrame {
 
         jLabelStatus.setText("Zaustavljen");
 
-        jMenu1.setText("File");
+        jMenu1.setText("Konfiguracija");
 
         jMenuItem1.setText("baza");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {

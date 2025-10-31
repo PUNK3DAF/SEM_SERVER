@@ -18,18 +18,8 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        if (param == null) {
-            throw new Exception("Administrator parametar je null.");
-        }
-        if (!(param instanceof Administrator)) {
-            throw new Exception("Ocekivan parametar tipa Administrator.");
-        }
-        Administrator adm = (Administrator) param;
-        if (adm.getAdminUsername() == null || adm.getAdminUsername().trim().isEmpty()) {
-            throw new Exception("Korisnicko ime ne sme biti prazno.");
-        }
-        if (adm.getAdminPassword() == null || adm.getAdminPassword().trim().isEmpty()) {
-            throw new Exception("Lozinka ne sme biti prazna.");
+        if (param == null || !(param instanceof Administrator)) {
+            throw new Exception("Sistem ne moze da se uloguje.");
         }
     }
 
@@ -48,7 +38,6 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija {
             String dbPass = (ad.getAdminPassword() == null) ? "" : ad.getAdminPassword().trim();
             System.out.println("  DB admin -> username: '" + dbUser + "' password: '" + dbPass + "'");
 
-            // strogo poređenje username i password (trim, null-safe)
             if (dbUser.equals(trazeniUser) && dbPass.equals(trazeniPass)) {
                 a = ad;
                 System.out.println("  -> Uspesno pronadjen admin: " + a);
