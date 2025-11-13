@@ -47,12 +47,14 @@ public class ObradaKlijentskihZahteva extends Thread {
             Odgovor odgovor = new Odgovor();
             try {
                 switch (zahtev.getOperacija()) {
-                    case ADMIN_LOGIN:
-                        Administrator a = (Administrator) zahtev.getParametar();
-                        a = controller.Controller.getInstanca().login(a);
-                        odgovor.setOdgovor(a);
-                        if (a != null) {
-                            this.prijavljeniAdmin = a;
+                    case DODAJ_ANSAMBL:
+                        Ansambl ans = (Ansambl) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje ansambla."));
+                        } else {
+                            ans.setAdmin(prijavljeniAdmin);
+                            controller.Controller.getInstanca().dodajAnsambl(ans);
+                            odgovor.setOdgovor(null);
                         }
                         break;
                     case UCITAJ_ANSAMBLE:
@@ -73,11 +75,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(null);
                         }
                         break;
-                    case DODAJ_ANSAMBL:
-                        Ansambl ans = (Ansambl) zahtev.getParametar();
-                        controller.Controller.getInstanca().dodajAnsambl(ans);
-                        odgovor.setOdgovor(null);
-                        break;
                     case AZURIRAJ_ANSAMBL:
                         Ansambl ansa = (Ansambl) zahtev.getParametar();
                         Ansambl dbAn2 = controller.Controller.getInstanca().getAnsamblById(ansa.getAnsamblID());
@@ -87,6 +84,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                                 || dbAn2.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
                             odgovor.setOdgovor(new Exception("Nemate ovlascenje da azurirate ovaj ansambl."));
                         } else {
+                            ansa.setAdmin(dbAn2.getAdmin());
                             controller.Controller.getInstanca().azurirajAnsambl(ansa);
                             odgovor.setOdgovor(null);
                         }
@@ -108,11 +106,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(null);
                         }
                         break;
-                    case DODAJ_CLAN:
-                        ClanDrustva cl = (ClanDrustva) zahtev.getParametar();
-                        controller.Controller.getInstanca().dodajClan(cl);
-                        odgovor.setOdgovor(null);
-                        break;
                     case AZURIRAJ_CLAN:
                         ClanDrustva cln = (ClanDrustva) zahtev.getParametar();
                         ClanDrustva dbCln = controller.Controller.getInstanca().getClanById(cln.getClanID());
@@ -132,13 +125,27 @@ public class ObradaKlijentskihZahteva extends Thread {
                         break;
                     case DODAJ_ANSAMBL_SA_SASTAVOM:
                         Ansambl ansSa = (Ansambl) zahtev.getParametar();
-                        controller.Controller.getInstanca().dodajAnsamblSaSastavom(ansSa);
-                        odgovor.setOdgovor(null);
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje ansambla."));
+                        } else {
+                            ansSa.setAdmin(prijavljeniAdmin);
+                            controller.Controller.getInstanca().dodajAnsamblSaSastavom(ansSa);
+                            odgovor.setOdgovor(null);
+                        }
                         break;
                     case AZURIRAJ_SASTAV_ANSAMBLA:
                         Ansambl ansUpd = (Ansambl) zahtev.getParametar();
-                        controller.Controller.getInstanca().azurirajSastavAnsambla(ansUpd);
-                        odgovor.setOdgovor(null);
+                        Ansambl dbAn3 = controller.Controller.getInstanca().getAnsamblById(ansUpd.getAnsamblID());
+                        if (dbAn3 == null) {
+                            odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
+                        } else if (prijavljeniAdmin == null || dbAn3.getAdmin() == null
+                                || dbAn3.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
+                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da azurirate sastav ansambla."));
+                        } else {
+                            ansUpd.setAdmin(dbAn3.getAdmin());
+                            controller.Controller.getInstanca().azurirajSastavAnsambla(ansUpd);
+                            odgovor.setOdgovor(null);
+                        }
                         break;
                     case NADJI_CLANOVE:
                         String trazena = (String) zahtev.getParametar();
