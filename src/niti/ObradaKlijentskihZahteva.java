@@ -49,6 +49,14 @@ public class ObradaKlijentskihZahteva extends Thread {
             Odgovor odgovor = new Odgovor();
             try {
                 switch (zahtev.getOperacija()) {
+                    case ADMIN_LOGIN:
+                        Administrator a = (Administrator) zahtev.getParametar();
+                        a = controller.Controller.getInstanca().login(a);
+                        odgovor.setOdgovor(a);
+                        if (a != null) {
+                            this.prijavljeniAdmin = a;
+                        }
+                        break;
                     case DODAJ_ANSAMBL:
                         Ansambl ans = (Ansambl) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
