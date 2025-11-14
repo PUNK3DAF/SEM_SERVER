@@ -44,6 +44,8 @@ public class ObradaKlijentskihZahteva extends Thread {
                 prekini();
                 break;
             }
+            System.out.println("SERVER DEBUG: primljen zahtev - operacija = " + zahtev.getOperacija()
+                    + " , parametar = " + (zahtev.getParametar() == null ? "null" : zahtev.getParametar().getClass().getName()));
             Odgovor odgovor = new Odgovor();
             try {
                 switch (zahtev.getOperacija()) {
