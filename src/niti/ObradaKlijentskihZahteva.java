@@ -176,7 +176,11 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case UCITAJ_CLANA:
                         ClanDrustva probe = (ClanDrustva) zahtev.getParametar();
                         ClanDrustva found = controller.Controller.getInstanca().getClanById(probe.getClanID());
-                        odgovor.setOdgovor(found);
+                        if (found == null) {
+                            odgovor.setOdgovor(new Exception("Clan ne postoji."));
+                        } else {
+                            odgovor.setOdgovor(found);
+                        }
                         break;
                     default:
                         System.out.println("GRESKA");
