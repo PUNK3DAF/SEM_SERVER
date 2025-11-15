@@ -160,7 +160,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case DODAJ_CLAN:
                         ClanDrustva clan = (ClanDrustva) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje člana društva."));
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje clana drustva."));
                         } else {
                             clan.setAdmin(prijavljeniAdmin);
                             controller.Controller.getInstanca().dodajClan(clan);
