@@ -159,6 +159,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                         break;
                     case DODAJ_CLAN:
                         ClanDrustva clan = (ClanDrustva) zahtev.getParametar();
+                        System.out.println("SERVER DEBUG: primljen DODAJ_CLAN, ime='" + clan.getClanIme() + "', pol='" + clan.getClanPol() + "', god=" + clan.getClanGod() + ", tel='" + clan.getClanBrTel() + "'");
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje clana drustva."));
                         } else {

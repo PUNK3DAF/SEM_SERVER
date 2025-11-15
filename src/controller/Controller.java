@@ -114,13 +114,9 @@ public class Controller {
         }
     }
 
-    public void dodajClan(ClanDrustva c) {
+    public void dodajClan(ClanDrustva c) throws Exception {
         DodajClan operacija = new DodajClan();
-        try {
-            operacija.izvrsi(c, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        operacija.izvrsi(c, null);
     }
 
     public void azurirajClan(ClanDrustva c) {
