@@ -157,6 +157,16 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(null);
                         }
                         break;
+                    case DODAJ_CLAN:
+                        ClanDrustva clan = (ClanDrustva) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje člana društva."));
+                        } else {
+                            clan.setAdmin(prijavljeniAdmin);
+                            controller.Controller.getInstanca().dodajClan(clan);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
                     case NADJI_CLANOVE:
                         String trazena = (String) zahtev.getParametar();
                         List<ClanDrustva> nadjeni = controller.Controller.getInstanca().nadjiClanove(trazena);
