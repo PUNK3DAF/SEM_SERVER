@@ -119,13 +119,9 @@ public class Controller {
         operacija.izvrsi(c, null);
     }
 
-    public void azurirajClan(ClanDrustva c) {
+    public void azurirajClan(ClanDrustva c) throws Exception {
         AzurirajClan operacija = new AzurirajClan();
-        try {
-            operacija.izvrsi(c, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        operacija.izvrsi(c, null);
     }
 
     public Ansambl getAnsamblById(int id) {
