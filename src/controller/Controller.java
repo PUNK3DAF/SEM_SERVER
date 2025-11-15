@@ -76,13 +76,9 @@ public class Controller {
         }
     }
 
-    public void dodajAnsambl(Ansambl ans) {
+    public void dodajAnsambl(Ansambl ans) throws Exception {
         DodajAnsambl operacija = new DodajAnsambl();
-        try {
-            operacija.izvrsi(ans, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        operacija.izvrsi(ans, null);
     }
 
     public void azurirajAnsambl(Ansambl ansa) {
@@ -158,13 +154,9 @@ public class Controller {
         return oper.getListaUcesca();
     }
 
-    public void dodajAnsamblSaSastavom(Ansambl a) {
+    public void dodajAnsamblSaSastavom(Ansambl a) throws Exception {
         DodajAnsamblSaSastavom op = new DodajAnsamblSaSastavom();
-        try {
-            op.izvrsi(a, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        op.izvrsi(a, null);
     }
 
     public void azurirajSastavAnsambla(Ansambl a) {
