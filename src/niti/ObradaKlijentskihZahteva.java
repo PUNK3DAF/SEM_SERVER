@@ -182,6 +182,15 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(found);
                         }
                         break;
+                    case UCITAJ_ANSAMBL:
+                        Ansambl probeAns = (Ansambl) zahtev.getParametar();
+                        Ansambl foundAns = controller.Controller.getInstanca().getAnsamblById(probeAns.getAnsamblID());
+                        if (foundAns == null) {
+                            odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
+                        } else {
+                            odgovor.setOdgovor(foundAns);
+                        }
+                        break;
                     default:
                         System.out.println("GRESKA");
                         odgovor.setOdgovor(new Exception("Nepoznata operacija na serveru"));
