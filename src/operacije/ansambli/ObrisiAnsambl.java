@@ -26,11 +26,14 @@ public class ObrisiAnsambl extends ApstraktnaGenerickaOperacija {
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         Ansambl a = (Ansambl) param;
 
-        // Prvo obriši sve Ucesce zapise vezane za ovaj ansambl
-        // da članovi ostanu, ali njihova učešća u ansamblu budu obrisana
-        List<Ucesce> ucesca = a.getUcesca();
+        // Prvo učitaj sve Ucesce zapise vezane za ovaj ansambl
+        Ucesce probe = new Ucesce();
+        probe.setAnsambl(a);
+        List<ApstraktniDomenskiObjekat> ucesca = broker.getAll(probe, " WHERE ansambl = " + a.getAnsamblID());
+
+        // Obriši sve učešće zapise da članovi ostanu, ali njihova učešća u ansamblu budu obrisana
         if (ucesca != null && !ucesca.isEmpty()) {
-            for (Ucesce u : ucesca) {
+            for (ApstraktniDomenskiObjekat u : ucesca) {
                 broker.delete(u);
             }
         }
