@@ -5,6 +5,7 @@
 package operacije.ansambli;
 
 import domen.Ansambl;
+import domen.ApstraktniDomenskiObjekat;
 import domen.Ucesce;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
