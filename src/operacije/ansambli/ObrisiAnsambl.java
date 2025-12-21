@@ -5,6 +5,8 @@
 package operacije.ansambli;
 
 import domen.Ansambl;
+import domen.Ucesce;
+import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
 /**
@@ -23,6 +25,17 @@ public class ObrisiAnsambl extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         Ansambl a = (Ansambl) param;
+
+        // Prvo obriši sve Ucesce zapise vezane za ovaj ansambl
+        // da članovi ostanu, ali njihova učešća u ansamblu budu obrisana
+        List<Ucesce> ucesca = a.getUcesca();
+        if (ucesca != null && !ucesca.isEmpty()) {
+            for (Ucesce u : ucesca) {
+                broker.delete(u);
+            }
+        }
+
+        // Zatim označi ansambl kao obrisan
         a.setObrisan(1);
         broker.edit(a);
     }
