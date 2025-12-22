@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package server;
 
 import java.io.IOException;
@@ -9,19 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import niti.ObradaKlijentskihZahteva;
 
-/**
- *
- * @author vldmrk
- */
 public class Server extends Thread {
 
-    boolean kraj = false;
-    ServerSocket serverSoket;
-    List<ObradaKlijentskihZahteva> klijenti;
+    private boolean kraj = false;
+    private ServerSocket serverSoket;
+    private List<ObradaKlijentskihZahteva> klijenti;
 
     public Server() {
         klijenti = new ArrayList<>();
@@ -39,7 +29,9 @@ public class Server extends Thread {
                 okz.start();
             }
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            if (!kraj) {
+                System.err.println("Greska pri pokretanju servera: " + ex.getMessage());
+            }
         }
     }
 
@@ -49,9 +41,11 @@ public class Server extends Thread {
             for (ObradaKlijentskihZahteva k : klijenti) {
                 k.prekini();
             }
-            serverSoket.close();
+            if (serverSoket != null) {
+                serverSoket.close();
+            }
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Greska pri zaustavljanju servera: " + ex.getMessage());
         }
     }
 }

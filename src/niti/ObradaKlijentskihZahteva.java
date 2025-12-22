@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package niti;
 
 import domen.Administrator;
@@ -11,17 +7,11 @@ import domen.Ucesce;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import komunikacija.Odgovor;
 import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
 
-/**
- *
- * @author vldmrk
- */
 public class ObradaKlijentskihZahteva extends Thread {
 
     Socket socket;
@@ -44,8 +34,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                 prekini();
                 break;
             }
-            System.out.println("SERVER DEBUG: primljen zahtev - operacija = " + zahtev.getOperacija()
-                    + " , parametar = " + (zahtev.getParametar() == null ? "null" : zahtev.getParametar().getClass().getName()));
             Odgovor odgovor = new Odgovor();
             try {
                 switch (zahtev.getOperacija()) {
@@ -159,7 +147,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                         break;
                     case DODAJ_CLAN:
                         ClanDrustva clan = (ClanDrustva) zahtev.getParametar();
-                        System.out.println("SERVER DEBUG: primljen DODAJ_CLAN, ime='" + clan.getClanIme() + "', pol='" + clan.getClanPol() + "', god=" + clan.getClanGod() + ", tel='" + clan.getClanBrTel() + "'");
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje clana drustva."));
                         } else {
@@ -192,20 +179,15 @@ public class ObradaKlijentskihZahteva extends Thread {
                         }
                         break;
                     default:
-                        System.out.println("GRESKA");
                         odgovor.setOdgovor(new Exception("Nepoznata operacija na serveru"));
                         break;
                 }
             } catch (Exception ex) {
                 odgovor.setOdgovor(ex);
-                Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                System.out.println("SERVER DEBUG: saljem odgovor klijentu za operaciju " + zahtev.getOperacija());
                 posiljalac.posalji(odgovor);
-                System.out.println("SERVER DEBUG: odgovor poslat.");
             } catch (Exception ioEx) {
-                System.err.println("SERVER DEBUG: greska prilikom slanja odgovora klijentu:");
                 ioEx.printStackTrace();
             }
         }
@@ -221,13 +203,13 @@ public class ObradaKlijentskihZahteva extends Thread {
                 primalac.close();
             }
         } catch (Exception ex) {
-            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.FINE, null, ex);
+            // Ignore close errors
         }
 
         try {
             socket.close();
         } catch (IOException ex) {
-            Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+            // Ignore socket close errors
         }
         interrupt();
     }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package repository.db.impl;
 
 import domen.ApstraktniDomenskiObjekat;
@@ -12,10 +8,6 @@ import repository.db.DbRepository;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-/**
- *
- * @author vldmrk
- */
 public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjekat> {
 
     @Override

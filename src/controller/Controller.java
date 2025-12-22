@@ -9,15 +9,12 @@ import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import operacije.ansambli.AzurirajAnsambl;
 import operacije.ansambli.AzurirajSastavAnsambla;
 import operacije.ansambli.DodajAnsambl;
 import operacije.ansambli.DodajAnsamblSaSastavom;
 import operacije.ansambli.ObrisiAnsambl;
 import operacije.ansambli.UcitajAnsamblById;
-import operacije.login.LoginOperacija;
 import operacije.ansambli.UcitajAnsamble;
 import operacije.clanovi.AzurirajClan;
 import operacije.clanovi.DodajClan;
@@ -25,6 +22,7 @@ import operacije.clanovi.ObrisiClan;
 import operacije.clanovi.UcitajClanById;
 import operacije.clanovi.UcitajClanove;
 import operacije.clanovi.UcitajClanovePoVrednosti;
+import operacije.login.LoginOperacija;
 import operacije.ucesce.UcitajUcesca;
 
 /**
@@ -50,9 +48,8 @@ public class Controller {
         try {
             operacija.izvrsi(a, null);
         } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            // Silent fail - login will return null
         }
-        System.out.println("KLASA CONTROLLER ZAPOSLENI: " + operacija.getA());
         return operacija.getA();
     }
 
@@ -61,19 +58,14 @@ public class Controller {
         try {
             operacija.izvrsi(null, null);
         } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            // Silent fail
         }
-        System.out.println("KLASA CONTROLLER ANSAMBLI: " + operacija.getAnsambli());
         return operacija.getAnsambli();
     }
 
-    public void obrisiAnsambl(Ansambl a) {
+    public void obrisiAnsambl(Ansambl a) throws Exception {
         ObrisiAnsambl operacija = new ObrisiAnsambl();
-        try {
-            operacija.izvrsi(a, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        operacija.izvrsi(a, null);
     }
 
     public void dodajAnsambl(Ansambl ans) throws Exception {
@@ -81,13 +73,9 @@ public class Controller {
         operacija.izvrsi(ans, null);
     }
 
-    public void azurirajAnsambl(Ansambl ansa) {
+    public void azurirajAnsambl(Ansambl ansa) throws Exception {
         AzurirajAnsambl operacija = new AzurirajAnsambl();
-        try {
-            operacija.izvrsi(ansa, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        operacija.izvrsi(ansa, null);
     }
 
     public List<ClanDrustva> ucitajClanove() {
@@ -95,19 +83,14 @@ public class Controller {
         try {
             operacija.izvrsi(null, null);
         } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            // Silent fail
         }
-        System.out.println("KLASA CONTROLLER CLANOVI: " + operacija.getClanovi());
         return operacija.getClanovi();
     }
 
-    public void obrisiClan(ClanDrustva c) {
+    public void obrisiClan(ClanDrustva c) throws Exception {
         ObrisiClan operacija = new ObrisiClan();
-        try {
-            operacija.izvrsi(c, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        operacija.izvrsi(c, null);
     }
 
     public void dodajClan(ClanDrustva c) throws Exception {
@@ -120,27 +103,19 @@ public class Controller {
         operacija.izvrsi(c, null);
     }
 
-    public Ansambl getAnsamblById(int id) {
+    public Ansambl getAnsamblById(int id) throws Exception {
         UcitajAnsamblById oper = new UcitajAnsamblById();
         Ansambl probe = new Ansambl();
         probe.setAnsamblID(id);
-        try {
-            oper.izvrsi(probe, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        oper.izvrsi(probe, null);
         return oper.getAnsambl();
     }
 
-    public ClanDrustva getClanById(int id) {
+    public ClanDrustva getClanById(int id) throws Exception {
         UcitajClanById oper = new UcitajClanById();
         ClanDrustva probe = new ClanDrustva();
         probe.setClanID(id);
-        try {
-            oper.izvrsi(probe, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        oper.izvrsi(probe, null);
         return oper.getClan();
     }
 
@@ -149,7 +124,7 @@ public class Controller {
         try {
             oper.izvrsi(null, null);
         } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            // Silent fail
         }
         return oper.getListaUcesca();
     }
@@ -159,22 +134,14 @@ public class Controller {
         op.izvrsi(a, null);
     }
 
-    public void azurirajSastavAnsambla(Ansambl a) {
+    public void azurirajSastavAnsambla(Ansambl a) throws Exception {
         AzurirajSastavAnsambla op = new AzurirajSastavAnsambla();
-        try {
-            op.izvrsi(a, null);
-        } catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        op.izvrsi(a, null);
     }
 
-    public List<ClanDrustva> nadjiClanove(String vrednost) {
+    public List<ClanDrustva> nadjiClanove(String vrednost) throws Exception {
         UcitajClanovePoVrednosti op = new UcitajClanovePoVrednosti();
-        try {
-            op.izvrsi(vrednost, null);
-        } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(Controller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        op.izvrsi(vrednost, null);
         return op.getClanovi();
     }
 }

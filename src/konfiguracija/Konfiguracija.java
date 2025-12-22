@@ -1,20 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package konfiguracija;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author vldmrk
- */
 public class Konfiguracija {
 
     private static Konfiguracija instanca;
@@ -25,7 +15,7 @@ public class Konfiguracija {
         try {
             konfiguracija.load(new FileInputStream("C:\\Users\\vldmrk\\OneDrive - Fakultet organizacionih nauka\\Documents\\NetBeansProjects\\SEM_SERVER\\config\\config.properties"));
         } catch (IOException ex) {
-            Logger.getLogger(Konfiguracija.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
