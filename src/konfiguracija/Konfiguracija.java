@@ -39,7 +39,7 @@ public class Konfiguracija {
         try {
             konfiguracija.store(new FileOutputStream("C:\\Users\\vldmrk\\OneDrive - Fakultet organizacionih nauka\\Documents\\NetBeansProjects\\SEM_SERVER\\config\\config.properties"), null);
         } catch (IOException ex) {
-            Logger.getLogger(Konfiguracija.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 }
