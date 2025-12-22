@@ -16,6 +16,7 @@ import operacije.ansambli.DodajAnsamblSaSastavom;
 import operacije.ansambli.ObrisiAnsambl;
 import operacije.ansambli.UcitajAnsamblById;
 import operacije.ansambli.UcitajAnsamble;
+import operacije.ansambli.UcitajAnsamblaPoVrednosti;
 import operacije.clanovi.AzurirajClan;
 import operacije.clanovi.DodajClan;
 import operacije.clanovi.ObrisiClan;
@@ -143,5 +144,11 @@ public class Controller {
         UcitajClanovePoVrednosti op = new UcitajClanovePoVrednosti();
         op.izvrsi(vrednost, null);
         return op.getClanovi();
+    }
+
+    public List<Ansambl> nadjiAnsambla(String vrednost) throws Exception {
+        UcitajAnsamblaPoVrednosti op = new UcitajAnsamblaPoVrednosti();
+        op.izvrsi(vrednost, null);
+        return op.getAnsambli();
     }
 }

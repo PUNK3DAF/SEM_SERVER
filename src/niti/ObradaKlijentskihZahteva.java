@@ -45,7 +45,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                             this.prijavljeniAdmin = a;
                         }
                         break;
-                    case DODAJ_ANSAMBL:
+                    case KREIRAJ_ANSAMBL:
                         Ansambl ans = (Ansambl) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje ansambla."));
@@ -121,7 +121,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<Ucesce> ucesca = controller.Controller.getInstanca().ucitajUcesca();
                         odgovor.setOdgovor(ucesca);
                         break;
-                    case DODAJ_ANSAMBL_SA_SASTAVOM:
+                    case KREIRAJ_ANSAMBL_SA_SASTAVOM:
                         Ansambl ansSa = (Ansambl) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje ansambla."));
@@ -145,7 +145,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(null);
                         }
                         break;
-                    case DODAJ_CLAN:
+                    case KREIRAJ_CLAN:
                         ClanDrustva clan = (ClanDrustva) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje clana drustva."));
@@ -177,6 +177,11 @@ public class ObradaKlijentskihZahteva extends Thread {
                         } else {
                             odgovor.setOdgovor(foundAns);
                         }
+                        break;
+                    case NADJI_ANSAMBL:
+                        String trazenoAns = (String) zahtev.getParametar();
+                        List<Ansambl> nadjenoAns = controller.Controller.getInstanca().nadjiAnsambla(trazenoAns);
+                        odgovor.setOdgovor(nadjenoAns);
                         break;
                     default:
                         odgovor.setOdgovor(new Exception("Nepoznata operacija na serveru"));
