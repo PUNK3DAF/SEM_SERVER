@@ -50,8 +50,6 @@ public class DodajAnsamblSaSastavom extends ApstraktnaGenerickaOperacija {
                 u.setAnsambl(a);
                 broker.add(u);
             }
-            int ukupno = lista.size();
-            System.out.println("SERVER DEBUG: zavrseno ubacivanje ucesca, ukupno = " + ukupno);
         }
     }
 
