@@ -3,6 +3,7 @@ package niti;
 import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
+import domen.Ucesce;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -153,6 +154,10 @@ public class ObradaKlijentskihZahteva extends Thread {
                         String trazenoAns = (String) zahtev.getParametar();
                         List<Ansambl> nadjenoAns = controller.Controller.getInstanca().nadjiAnsambla(trazenoAns);
                         odgovor.setOdgovor(nadjenoAns);
+                        break;
+                    case UCITAJ_UCESCA: // pomocna operacija
+                        List<Ucesce> ucesca = controller.Controller.getInstanca().ucitajUcesca();
+                        odgovor.setOdgovor(ucesca);
                         break;
                     default:
                         odgovor.setOdgovor(new Exception("Nepoznata operacija na serveru"));

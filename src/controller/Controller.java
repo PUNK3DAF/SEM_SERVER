@@ -7,6 +7,7 @@ package controller;
 import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
+import domen.Ucesce;
 import java.util.List;
 import operacije.ansambli.AzurirajSastavAnsambla;
 import operacije.ansambli.DodajAnsamblSaSastavom;
@@ -21,6 +22,7 @@ import operacije.clanovi.UcitajClanById;
 import operacije.clanovi.UcitajClanove;
 import operacije.clanovi.UcitajClanovePoVrednosti;
 import operacije.login.LoginOperacija;
+import operacije.ucesce.UcitajUcesca;
 
 /**
  *
@@ -134,5 +136,16 @@ public class Controller {
         UcitajAnsamblaPoVrednosti op = new UcitajAnsamblaPoVrednosti();
         op.izvrsi(vrednost, null);
         return op.getAnsambli();
+    }
+
+    // pomocna operacija
+    public List<Ucesce> ucitajUcesca() {
+        UcitajUcesca oper = new UcitajUcesca();
+        try {
+            oper.izvrsi(null, null);
+        } catch (Exception ex) {
+            // Silent fail for helper operation
+        }
+        return oper.getListaUcesca();
     }
 }
