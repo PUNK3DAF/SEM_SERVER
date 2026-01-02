@@ -1,27 +1,17 @@
 package operacije.ucesce;
 
-import domen.Ucesce;
-import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
 /**
- *
- * @author vldmrk
+ * Deprecated - sada je u operacije.pomocne.UcitajUcesca
  */
 public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
-
-    private List<Ucesce> listaUcesca;
-
     @Override
     protected void preduslovi(Object param) throws Exception {
+        throw new UnsupportedOperationException("Prebačeno u operacije.pomocne");
     }
-
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        listaUcesca = (List<Ucesce>) (List) broker.getAll(new Ucesce(), null);
-    }
-
-    public List<Ucesce> getListaUcesca() {
-        return listaUcesca;
+        throw new UnsupportedOperationException("Prebačeno u operacije.pomocne");
     }
 }
