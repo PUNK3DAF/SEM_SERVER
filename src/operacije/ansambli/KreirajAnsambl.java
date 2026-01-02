@@ -5,7 +5,7 @@ import domen.Ucesce;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
-public class DodajAnsambl extends ApstraktnaGenerickaOperacija {
+public class KreirajAnsambl extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {

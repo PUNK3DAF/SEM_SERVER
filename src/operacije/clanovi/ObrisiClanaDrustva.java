@@ -7,7 +7,7 @@ import operacije.ApstraktnaGenerickaOperacija;
  *
  * @author vldmrk
  */
-public class ObrisiClan extends ApstraktnaGenerickaOperacija {
+public class ObrisiClanaDrustva extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {

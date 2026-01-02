@@ -8,7 +8,7 @@ import operacije.ApstraktnaGenerickaOperacija;
  *
  * @author vldmrk
  */
-public class LoginOperacija extends ApstraktnaGenerickaOperacija {
+public class AdminLogin extends ApstraktnaGenerickaOperacija {
 
     Administrator a;
 

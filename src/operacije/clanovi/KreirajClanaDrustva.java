@@ -7,12 +7,12 @@ import operacije.ApstraktnaGenerickaOperacija;
  *
  * @author vldmrk
  */
-public class IzmeniClana extends ApstraktnaGenerickaOperacija {
+public class KreirajClanaDrustva extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof ClanDrustva)) {
-            throw new Exception("Neispravan parametar za azuriranje clana.");
+            throw new Exception("Neispravan parametar za dodavanje clana.");
         }
         ClanDrustva c = (ClanDrustva) param;
 
@@ -43,7 +43,7 @@ public class IzmeniClana extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         ClanDrustva c = (ClanDrustva) param;
-        broker.edit(c);
+        broker.add(c);
     }
 
 }

@@ -9,19 +9,19 @@ import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
 import java.util.List;
-import operacije.ansambli.AzurirajAnsambl;
-import operacije.ansambli.DodajAnsambl;
+import operacije.ansambli.IzmenaAnsambla;
+import operacije.ansambli.KreirajAnsambl;
 import operacije.ansambli.ObrisiAnsambl;
 import operacije.ansambli.UcitajAnsamble;
-import operacije.clanovi.AzurirajClan;
-import operacije.clanovi.DodajClan;
-import operacije.clanovi.ObrisiClan;
+import operacije.ansambli.NadjiAnsambl;
+import operacije.ansambli.UcitajAnsambl;
+import operacije.clanovi.IzmeniClanaDrustva;
+import operacije.clanovi.KreirajClanaDrustva;
+import operacije.clanovi.ObrisiClanaDrustva;
 import operacije.clanovi.UcitajClanove;
-import operacije.login.LoginOperacija;
-import operacije.pomocne.UcitajAnsamblById;
-import operacije.pomocne.UcitajAnsamblaPoVrednosti;
-import operacije.pomocne.UcitajClanById;
-import operacije.pomocne.UcitajClanovePoVrednosti;
+import operacije.clanovi.NadjiClanaDrustva;
+import operacije.clanovi.UcitajClanaDrustva;
+import operacije.login.AdminLogin;
 import operacije.pomocne.UcitajUcesca;
 
 /**
@@ -43,7 +43,7 @@ public class Controller {
     }
 
     public Administrator login(Administrator a) {
-        LoginOperacija operacija = new LoginOperacija();
+        AdminLogin operacija = new AdminLogin();
         try {
             operacija.izvrsi(a, null);
         } catch (Exception ex) {
@@ -68,12 +68,12 @@ public class Controller {
     }
 
     public void kreirajAnsambl(Ansambl a) throws Exception {
-        DodajAnsambl op = new DodajAnsambl();
+        KreirajAnsambl op = new KreirajAnsambl();
         op.izvrsi(a, null);
     }
 
     public void izmenaAnsambla(Ansambl a) throws Exception {
-        AzurirajAnsambl op = new AzurirajAnsambl();
+        IzmenaAnsambla op = new IzmenaAnsambla();
         op.izvrsi(a, null);
     }
 
@@ -88,22 +88,22 @@ public class Controller {
     }
 
     public void obrisiClanaDrustva(ClanDrustva c) throws Exception {
-        ObrisiClan operacija = new ObrisiClan();
+        ObrisiClanaDrustva operacija = new ObrisiClanaDrustva();
         operacija.izvrsi(c, null);
     }
 
     public void kreirajClanaDrustva(ClanDrustva c) throws Exception {
-        DodajClan operacija = new DodajClan();
+        KreirajClanaDrustva operacija = new KreirajClanaDrustva();
         operacija.izvrsi(c, null);
     }
 
     public void izmeniClanaDrustva(ClanDrustva c) throws Exception {
-        AzurirajClan operacija = new AzurirajClan();
+        IzmeniClanaDrustva operacija = new IzmeniClanaDrustva();
         operacija.izvrsi(c, null);
     }
 
     public Ansambl getAnsamblById(int id) throws Exception {
-        UcitajAnsamblById oper = new UcitajAnsamblById();
+        UcitajAnsambl oper = new UcitajAnsambl();
         Ansambl probe = new Ansambl();
         probe.setAnsamblID(id);
         oper.izvrsi(probe, null);
@@ -115,7 +115,7 @@ public class Controller {
     }
 
     public ClanDrustva ucitajClanaDrustva(int id) throws Exception {
-        UcitajClanById oper = new UcitajClanById();
+        UcitajClanaDrustva oper = new UcitajClanaDrustva();
         ClanDrustva probe = new ClanDrustva();
         probe.setClanID(id);
         oper.izvrsi(probe, null);
@@ -127,13 +127,13 @@ public class Controller {
     }
 
     public List<ClanDrustva> nadjiClanaDrustva(String vrednost) throws Exception {
-        UcitajClanovePoVrednosti op = new UcitajClanovePoVrednosti();
+        NadjiClanaDrustva op = new NadjiClanaDrustva();
         op.izvrsi(vrednost, null);
         return op.getClanovi();
     }
 
     public List<Ansambl> nadjiAnsambla(String vrednost) throws Exception {
-        UcitajAnsamblaPoVrednosti op = new UcitajAnsamblaPoVrednosti();
+        NadjiAnsambl op = new NadjiAnsambl();
         op.izvrsi(vrednost, null);
         return op.getAnsambli();
     }
