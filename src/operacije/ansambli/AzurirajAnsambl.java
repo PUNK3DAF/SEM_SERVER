@@ -27,11 +27,13 @@ public class AzurirajAnsambl extends ApstraktnaGenerickaOperacija {
         Ansambl a = (Ansambl) param;
         broker.edit(a);
 
-        // Delete existing participations for this ensemble
-        List<Ucesce> postojece = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), " WHERE ansambl=" + a.getAnsamblID());
+        // Delete existing participations for this ensemble (in-memory filter)
+        List<Ucesce> postojece = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), null);
         if (postojece != null) {
             for (Ucesce u : postojece) {
-                broker.delete(u);
+                if (u != null && u.getAnsambl() != null && u.getAnsambl().getAnsamblID() == a.getAnsamblID()) {
+                    broker.delete(u);
+                }
             }
         }
 

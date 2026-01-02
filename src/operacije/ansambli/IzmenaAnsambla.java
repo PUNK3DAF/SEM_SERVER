@@ -5,7 +5,7 @@ import domen.Ucesce;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
-public class DodajAnsambl extends ApstraktnaGenerickaOperacija {
+public class IzmenaAnsambla extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
@@ -25,18 +25,19 @@ public class DodajAnsambl extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         Ansambl a = (Ansambl) param;
-        broker.add(a);
+        broker.edit(a);
 
-        // Derive the latest ID without custom SQL by scanning existing entries
-        List<Ansambl> svi = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), null);
-        if (svi != null && !svi.isEmpty()) {
-            int maxId = 0;
-            for (Ansambl x : svi) {
-                if (x.getAnsamblID() > maxId) maxId = x.getAnsamblID();
+        // Delete existing participations for this ensemble (in-memory filter)
+        List<Ucesce> postojece = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), null);
+        if (postojece != null) {
+            for (Ucesce u : postojece) {
+                if (u != null && u.getAnsambl() != null && u.getAnsambl().getAnsamblID() == a.getAnsamblID()) {
+                    broker.delete(u);
+                }
             }
-            a.setAnsamblID(maxId);
         }
 
+        // Insert the new participation set
         List<Ucesce> lista = a.getUcesca();
         if (lista != null) {
             for (Ucesce u : lista) {

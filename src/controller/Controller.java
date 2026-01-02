@@ -12,17 +12,17 @@ import java.util.List;
 import operacije.ansambli.AzurirajAnsambl;
 import operacije.ansambli.DodajAnsambl;
 import operacije.ansambli.ObrisiAnsambl;
-import operacije.ansambli.UcitajAnsamblById;
 import operacije.ansambli.UcitajAnsamble;
-import operacije.ansambli.UcitajAnsamblaPoVrednosti;
 import operacije.clanovi.AzurirajClan;
 import operacije.clanovi.DodajClan;
 import operacije.clanovi.ObrisiClan;
-import operacije.clanovi.UcitajClanById;
 import operacije.clanovi.UcitajClanove;
-import operacije.clanovi.UcitajClanovePoVrednosti;
 import operacije.login.LoginOperacija;
-import operacije.ucesce.UcitajUcesca;
+import operacije.pomocne.UcitajAnsamblById;
+import operacije.pomocne.UcitajAnsamblaPoVrednosti;
+import operacije.pomocne.UcitajClanById;
+import operacije.pomocne.UcitajClanovePoVrednosti;
+import operacije.pomocne.UcitajUcesca;
 
 /**
  *
