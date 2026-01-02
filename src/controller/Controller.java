@@ -9,8 +9,8 @@ import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
 import java.util.List;
-import operacije.ansambli.AzurirajSastavAnsambla;
-import operacije.ansambli.DodajAnsamblSaSastavom;
+import operacije.ansambli.AzurirajAnsambl;
+import operacije.ansambli.DodajAnsambl;
 import operacije.ansambli.ObrisiAnsambl;
 import operacije.ansambli.UcitajAnsamblById;
 import operacije.ansambli.UcitajAnsamble;
@@ -68,12 +68,12 @@ public class Controller {
     }
 
     public void kreirajAnsambl(Ansambl a) throws Exception {
-        DodajAnsamblSaSastavom op = new DodajAnsamblSaSastavom();
+        DodajAnsambl op = new DodajAnsambl();
         op.izvrsi(a, null);
     }
 
     public void izmenaAnsambla(Ansambl a) throws Exception {
-        AzurirajSastavAnsambla op = new AzurirajSastavAnsambla();
+        AzurirajAnsambl op = new AzurirajAnsambl();
         op.izvrsi(a, null);
     }
 

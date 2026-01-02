@@ -1,6 +1,8 @@
 package operacije.ansambli;
 
 import domen.Ansambl;
+import domen.Ucesce;
+import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
 public class DodajAnsambl extends ApstraktnaGenerickaOperacija {
@@ -22,7 +24,22 @@ public class DodajAnsambl extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        broker.add((Ansambl) param);
+        Ansambl a = (Ansambl) param;
+        broker.add(a);
+
+        // Try to retrieve the generated ID using a simple DESC LIMIT query through the same repository
+        List<Ansambl> poslednji = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), " ORDER BY ansamblID DESC LIMIT 1");
+        if (poslednji != null && !poslednji.isEmpty()) {
+            a.setAnsamblID(poslednji.get(0).getAnsamblID());
+        }
+
+        List<Ucesce> lista = a.getUcesca();
+        if (lista != null) {
+            for (Ucesce u : lista) {
+                u.setAnsambl(a);
+                broker.add(u);
+            }
+        }
     }
 
 }

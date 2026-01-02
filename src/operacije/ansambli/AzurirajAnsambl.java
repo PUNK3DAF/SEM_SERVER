@@ -1,6 +1,8 @@
 package operacije.ansambli;
 
 import domen.Ansambl;
+import domen.Ucesce;
+import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
 public class AzurirajAnsambl extends ApstraktnaGenerickaOperacija {
@@ -22,7 +24,25 @@ public class AzurirajAnsambl extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        broker.edit((Ansambl) param);
+        Ansambl a = (Ansambl) param;
+        broker.edit(a);
+
+        // Delete existing participations for this ensemble
+        List<Ucesce> postojece = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), " WHERE ansambl=" + a.getAnsamblID());
+        if (postojece != null) {
+            for (Ucesce u : postojece) {
+                broker.delete(u);
+            }
+        }
+
+        // Insert the new participation set
+        List<Ucesce> lista = a.getUcesca();
+        if (lista != null) {
+            for (Ucesce u : lista) {
+                u.setAnsambl(a);
+                broker.add(u);
+            }
+        }
     }
 
 }
