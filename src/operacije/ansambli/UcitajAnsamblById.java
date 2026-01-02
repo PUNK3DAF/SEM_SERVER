@@ -26,11 +26,15 @@ public class UcitajAnsamblById extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         Ansambl a = (Ansambl) param;
-        List<Ansambl> lista = broker.getAll(new Ansambl(), " WHERE ansamblID=" + a.getAnsamblID());
-        if (lista != null && !lista.isEmpty()) {
-            ansambl = (Ansambl) lista.get(0);
-        } else {
-            ansambl = null;
+        List<Ansambl> lista = broker.getAll(new Ansambl(), null);
+        ansambl = null;
+        if (lista != null) {
+            for (Ansambl x : lista) {
+                if (x != null && x.getAnsamblID() == a.getAnsamblID()) {
+                    ansambl = x;
+                    break;
+                }
+            }
         }
     }
 

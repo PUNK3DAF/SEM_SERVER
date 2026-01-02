@@ -27,10 +27,14 @@ public class DodajAnsambl extends ApstraktnaGenerickaOperacija {
         Ansambl a = (Ansambl) param;
         broker.add(a);
 
-        // Try to retrieve the generated ID using a simple DESC LIMIT query through the same repository
-        List<Ansambl> poslednji = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), " ORDER BY ansamblID DESC LIMIT 1");
-        if (poslednji != null && !poslednji.isEmpty()) {
-            a.setAnsamblID(poslednji.get(0).getAnsamblID());
+        // Derive the latest ID without custom SQL by scanning existing entries
+        List<Ansambl> svi = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), null);
+        if (svi != null && !svi.isEmpty()) {
+            int maxId = 0;
+            for (Ansambl x : svi) {
+                if (x.getAnsamblID() > maxId) maxId = x.getAnsamblID();
+            }
+            a.setAnsamblID(maxId);
         }
 
         List<Ucesce> lista = a.getUcesca();

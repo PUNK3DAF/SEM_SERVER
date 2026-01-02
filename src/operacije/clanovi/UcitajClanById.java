@@ -26,11 +26,15 @@ public class UcitajClanById extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         ClanDrustva c = (ClanDrustva) param;
-        List<ClanDrustva> lista = broker.getAll(new ClanDrustva(), " WHERE clanID=" + c.getClanID());
-        if (lista != null && !lista.isEmpty()) {
-            clan = (ClanDrustva) lista.get(0);
-        } else {
-            clan = null;
+        List<ClanDrustva> lista = broker.getAll(new ClanDrustva(), null);
+        clan = null;
+        if (lista != null) {
+            for (ClanDrustva x : lista) {
+                if (x != null && x.getClanID() == c.getClanID()) {
+                    clan = x;
+                    break;
+                }
+            }
         }
     }
 

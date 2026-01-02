@@ -22,12 +22,17 @@ public class ObrisiAnsambl extends ApstraktnaGenerickaOperacija {
         // Prvo učitaj sve Ucesce zapise vezane za ovaj ansambl
         Ucesce probe = new Ucesce();
         probe.setAnsambl(a);
-        List<ApstraktniDomenskiObjekat> ucesca = broker.getAll(probe, " WHERE ansambl = " + a.getAnsamblID());
+        List<ApstraktniDomenskiObjekat> ucesca = broker.getAll(probe, null);
 
         // Obriši sve učešće zapise da članovi ostanu, ali njihova učešća u ansamblu budu obrisana
         if (ucesca != null && !ucesca.isEmpty()) {
             for (ApstraktniDomenskiObjekat u : ucesca) {
-                broker.delete(u);
+                if (u instanceof Ucesce) {
+                    Ucesce ux = (Ucesce) u;
+                    if (ux.getAnsambl() != null && ux.getAnsambl().getAnsamblID() == a.getAnsamblID()) {
+                        broker.delete(u);
+                    }
+                }
             }
         }
 
