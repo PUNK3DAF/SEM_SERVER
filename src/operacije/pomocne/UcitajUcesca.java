@@ -13,11 +13,12 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
+        // No specific preconditions
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        listaUcesca = (List<Ucesce>) (List) broker.getAll(new Ucesce(), null);
+        listaUcesca = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), null);
     }
 
     public List<Ucesce> getListaUcesca() {
