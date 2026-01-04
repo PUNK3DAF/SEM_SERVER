@@ -132,7 +132,7 @@ public class Controller {
         return op.getClanovi();
     }
 
-    public List<Ansambl> nadjiAnsambla(String vrednost) throws Exception {
+    public List<Ansambl> nadjiAnsambl(String vrednost) throws Exception {
         NadjiAnsambl op = new NadjiAnsambl();
         op.izvrsi(vrednost, null);
         return op.getAnsambli();

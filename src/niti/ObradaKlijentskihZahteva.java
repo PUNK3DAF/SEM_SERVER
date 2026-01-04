@@ -152,7 +152,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                         break;
                     case NADJI_ANSAMBL:
                         String trazenoAns = (String) zahtev.getParametar();
-                        List<Ansambl> nadjenoAns = controller.Controller.getInstanca().nadjiAnsambla(trazenoAns);
+                        List<Ansambl> nadjenoAns = controller.Controller.getInstanca().nadjiAnsambl(trazenoAns);
                         odgovor.setOdgovor(nadjenoAns);
                         break;
                     case UCITAJ_UCESCA: // pomocna operacija
