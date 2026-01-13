@@ -47,7 +47,6 @@ public class Controller {
         try {
             operacija.izvrsi(a, null);
         } catch (Exception ex) {
-            // Silent fail - login will return null
         }
         return operacija.getA();
     }
@@ -57,7 +56,6 @@ public class Controller {
         try {
             operacija.izvrsi(null, null);
         } catch (Exception ex) {
-            // Silent fail
         }
         return operacija.getAnsambli();
     }
@@ -82,7 +80,6 @@ public class Controller {
         try {
             operacija.izvrsi(null, null);
         } catch (Exception ex) {
-            // Silent fail
         }
         return operacija.getClanovi();
     }
@@ -138,13 +135,11 @@ public class Controller {
         return op.getAnsambli();
     }
 
-    // pomocna operacija
     public List<Ucesce> ucitajUcesca() {
         UcitajUcesca oper = new UcitajUcesca();
         try {
             oper.izvrsi(null, null);
         } catch (Exception ex) {
-            // Silent fail for helper operation
         }
         return oper.getListaUcesca();
     }

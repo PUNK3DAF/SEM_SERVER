@@ -27,7 +27,6 @@ public class IzmenaAnsambla extends ApstraktnaGenerickaOperacija {
         Ansambl a = (Ansambl) param;
         broker.edit(a);
 
-        // Delete existing participations for this ensemble (in-memory filter)
         List<Ucesce> postojece = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), null);
         if (postojece != null) {
             for (Ucesce u : postojece) {
@@ -37,7 +36,6 @@ public class IzmenaAnsambla extends ApstraktnaGenerickaOperacija {
             }
         }
 
-        // Insert the new participation set
         List<Ucesce> lista = a.getUcesca();
         if (lista != null) {
             for (Ucesce u : lista) {

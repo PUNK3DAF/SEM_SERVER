@@ -17,14 +17,12 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
-        // No specific preconditions
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         listaUcesca = (List<Ucesce>) (List<?>) broker.getAll(new Ucesce(), null);
 
-        // Enrich with names (in-memory, no SQL joins)
         List<Ansambl> sviAnsambli = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), null);
         List<ClanDrustva> sviClanovi = (List<ClanDrustva>) (List<?>) broker.getAll(new ClanDrustva(), null);
 
@@ -46,7 +44,6 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
             for (Ucesce u : listaUcesca) {
                 if (u == null) continue;
 
-                // Ansambl enrichment
                 Integer ansId = (u.getAnsambl() == null) ? null : u.getAnsambl().getAnsamblID();
                 if (ansId != null) {
                     Ansambl fromMap = ansPoId.get(ansId);
@@ -59,7 +56,6 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
                     }
                 }
 
-                // Clan enrichment
                 Integer clanId = (u.getClan() == null) ? null : u.getClan().getClanID();
                 if (clanId != null) {
                     ClanDrustva fromMap = clanPoId.get(clanId);

@@ -61,7 +61,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                         break;
                     case OBRISI_ANSAMBL:
                         Ansambl an = (Ansambl) zahtev.getParametar();
-                        // permission check: samo admin koji je vlasnik ansambla sme obrisati
                         Ansambl dbAn = controller.Controller.getInstanca().getAnsamblById(an.getAnsamblID());
                         if (dbAn == null) {
                             odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
