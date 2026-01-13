@@ -40,7 +40,6 @@ public class DbConnectionFactory {
                     Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.INFO, "DB connection opened/reopened");
                 } catch (SQLException ex) {
                     Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, "Failed to open DB connection", ex);
-                    // propagation optional — vratiti null ili baciti runtime; ovde logujemo i vraćamo null
                 }
             }
         } catch (SQLException ex) {
