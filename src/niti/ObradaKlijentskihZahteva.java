@@ -4,6 +4,7 @@ import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
+import domen.Zanr;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -154,9 +155,40 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<Ansambl> nadjenoAns = controller.Controller.getInstanca().nadjiAnsambl(trazenoAns);
                         odgovor.setOdgovor(nadjenoAns);
                         break;
-                    case UCITAJ_UCESCA: // pomocna operacija
+                    case UCITAJ_UCESCA:
                         List<Ucesce> ucesca = controller.Controller.getInstanca().ucitajUcesca();
                         odgovor.setOdgovor(ucesca);
+                        break;
+                    case KREIRAJ_ZANR:
+                        Zanr zanr = (Zanr) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje zanra."));
+                        } else {
+                            controller.Controller.getInstanca().kreirajZanr(zanr);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case UCITAJ_ZANROVE:
+                        List<Zanr> zanrovi = controller.Controller.getInstanca().ucitajZanrove();
+                        odgovor.setOdgovor(zanrovi);
+                        break;
+                    case IZMENI_ZANR:
+                        Zanr zanrIzmena = (Zanr) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje zanra."));
+                        } else {
+                            controller.Controller.getInstanca().izmeniZanr(zanrIzmena);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case OBRISI_ZANR:
+                        Zanr zanrBrisanje = (Zanr) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje zanra."));
+                        } else {
+                            controller.Controller.getInstanca().obrisiZanr(zanrBrisanje);
+                            odgovor.setOdgovor(null);
+                        }
                         break;
                     default:
                         odgovor.setOdgovor(new Exception("Nepoznata operacija na serveru"));

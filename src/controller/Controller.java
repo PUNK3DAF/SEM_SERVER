@@ -8,6 +8,7 @@ import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
+import domen.Zanr;
 import java.util.List;
 import operacije.ansambli.IzmenaAnsambla;
 import operacije.ansambli.KreirajAnsambl;
@@ -23,6 +24,10 @@ import operacije.clanovi.NadjiClanaDrustva;
 import operacije.clanovi.UcitajClanaDrustva;
 import operacije.login.AdminLogin;
 import operacije.pomocne.UcitajUcesca;
+import operacije.zanr.IzmeniZanr;
+import operacije.zanr.KreirajZanr;
+import operacije.zanr.ObrisiZanr;
+import operacije.zanr.UcitajZanrove;
 
 /**
  *
@@ -142,5 +147,29 @@ public class Controller {
         } catch (Exception ex) {
         }
         return oper.getListaUcesca();
+    }
+
+    public void kreirajZanr(Zanr z) throws Exception {
+        KreirajZanr op = new KreirajZanr();
+        op.izvrsi(z, null);
+    }
+
+    public List<Zanr> ucitajZanrove() {
+        UcitajZanrove op = new UcitajZanrove();
+        try {
+            op.izvrsi(null, null);
+        } catch (Exception ex) {
+        }
+        return op.getZanrovi();
+    }
+
+    public void izmeniZanr(Zanr z) throws Exception {
+        IzmeniZanr op = new IzmeniZanr();
+        op.izvrsi(z, null);
+    }
+
+    public void obrisiZanr(Zanr z) throws Exception {
+        ObrisiZanr op = new ObrisiZanr();
+        op.izvrsi(z, null);
     }
 }
