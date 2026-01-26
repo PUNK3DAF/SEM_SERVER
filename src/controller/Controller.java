@@ -29,9 +29,9 @@ import operacije.zanr.IzmeniZanr;
 import operacije.zanr.KreirajZanr;
 import operacije.zanr.ObrisiZanr;
 import operacije.zanr.UcitajZanrove;
-import operacije.uloga.IzmeniUloga;
-import operacije.uloga.KreirajUloga;
-import operacije.uloga.ObrisiUloga;
+import operacije.uloga.IzmeniUlogu;
+import operacije.uloga.KreirajUlogu;
+import operacije.uloga.ObrisiUlogu;
 import operacije.uloga.UcitajUloge;
 
 /**
@@ -178,8 +178,8 @@ public class Controller {
         op.izvrsi(z, null);
     }
 
-    public void kreirajUloga(Uloga u) throws Exception {
-        KreirajUloga op = new KreirajUloga();
+    public void kreirajUlogu(Uloga u) throws Exception {
+        KreirajUlogu op = new KreirajUlogu();
         op.izvrsi(u, null);
     }
 
@@ -192,13 +192,13 @@ public class Controller {
         return op.getUloge();
     }
 
-    public void izmeniUloga(Uloga u) throws Exception {
-        IzmeniUloga op = new IzmeniUloga();
+    public void izmeniUlogu(Uloga u) throws Exception {
+        IzmeniUlogu op = new IzmeniUlogu();
         op.izvrsi(u, null);
     }
 
-    public void obrisiUloga(Uloga u) throws Exception {
-        ObrisiUloga op = new ObrisiUloga();
+    public void obrisiUlogu(Uloga u) throws Exception {
+        ObrisiUlogu op = new ObrisiUlogu();
         op.izvrsi(u, null);
     }
 }

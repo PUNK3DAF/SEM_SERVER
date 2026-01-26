@@ -191,12 +191,12 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(null);
                         }
                         break;
-                    case KREIRAJ_ULOGA:
+                    case KREIRAJ_ULOGU:
                         Uloga uloga = (Uloga) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje uloge."));
                         } else {
-                            controller.Controller.getInstanca().kreirajUloga(uloga);
+                            controller.Controller.getInstanca().kreirajUlogu(uloga);
                             odgovor.setOdgovor(null);
                         }
                         break;
@@ -204,21 +204,21 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<Uloga> uloge = controller.Controller.getInstanca().ucitajUloge();
                         odgovor.setOdgovor(uloge);
                         break;
-                    case IZMENI_ULOGA:
+                    case IZMENI_ULOGU:
                         Uloga ulogaIzmena = (Uloga) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje uloge."));
                         } else {
-                            controller.Controller.getInstanca().izmeniUloga(ulogaIzmena);
+                            controller.Controller.getInstanca().izmeniUlogu(ulogaIzmena);
                             odgovor.setOdgovor(null);
                         }
                         break;
-                    case OBRISI_ULOGA:
+                    case OBRISI_ULOGU:
                         Uloga ulogaBrisanje = (Uloga) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje uloge."));
                         } else {
-                            controller.Controller.getInstanca().obrisiUloga(ulogaBrisanje);
+                            controller.Controller.getInstanca().obrisiUlogu(ulogaBrisanje);
                             odgovor.setOdgovor(null);
                         }
                         break;

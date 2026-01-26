@@ -3,7 +3,7 @@ package operacije.uloga;
 import domen.Uloga;
 import operacije.ApstraktnaGenerickaOperacija;
 
-public class IzmeniUloga extends ApstraktnaGenerickaOperacija {
+public class IzmeniUlogu extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
