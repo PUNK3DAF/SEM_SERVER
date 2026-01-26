@@ -3,6 +3,7 @@ package niti;
 import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
+import domen.Mesto;
 import domen.Ucesce;
 import domen.Zanr;
 import domen.Uloga;
@@ -219,6 +220,37 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje uloge."));
                         } else {
                             controller.Controller.getInstanca().obrisiUlogu(ulogaBrisanje);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case KREIRAJ_MESTO:
+                        Mesto mesto = (Mesto) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje mesta."));
+                        } else {
+                            controller.Controller.getInstanca().kreirajMesto(mesto);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case UCITAJ_MESTA:
+                        List<Mesto> mesta = controller.Controller.getInstanca().ucitajMesta();
+                        odgovor.setOdgovor(mesta);
+                        break;
+                    case IZMENI_MESTO:
+                        Mesto mestoIzmena = (Mesto) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje mesta."));
+                        } else {
+                            controller.Controller.getInstanca().izmeniMesto(mestoIzmena);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case OBRISI_MESTO:
+                        Mesto mestoBrisanje = (Mesto) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje mesta."));
+                        } else {
+                            controller.Controller.getInstanca().obrisiMesto(mestoBrisanje);
                             odgovor.setOdgovor(null);
                         }
                         break;

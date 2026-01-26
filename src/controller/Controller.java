@@ -7,6 +7,7 @@ package controller;
 import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
+import domen.Mesto;
 import domen.Ucesce;
 import domen.Uloga;
 import domen.Zanr;
@@ -33,6 +34,10 @@ import operacije.uloga.IzmeniUlogu;
 import operacije.uloga.KreirajUlogu;
 import operacije.uloga.ObrisiUlogu;
 import operacije.uloga.UcitajUloge;
+import operacije.mesto.IzmeniMesto;
+import operacije.mesto.KreirajMesto;
+import operacije.mesto.ObrisiMesto;
+import operacije.mesto.UcitajMesta;
 
 /**
  *
@@ -200,5 +205,29 @@ public class Controller {
     public void obrisiUlogu(Uloga u) throws Exception {
         ObrisiUlogu op = new ObrisiUlogu();
         op.izvrsi(u, null);
+    }
+
+    public void kreirajMesto(Mesto m) throws Exception {
+        KreirajMesto op = new KreirajMesto();
+        op.izvrsi(m, null);
+    }
+
+    public List<Mesto> ucitajMesta() {
+        UcitajMesta op = new UcitajMesta();
+        try {
+            op.izvrsi(null, null);
+        } catch (Exception ex) {
+        }
+        return op.getMesta();
+    }
+
+    public void izmeniMesto(Mesto m) throws Exception {
+        IzmeniMesto op = new IzmeniMesto();
+        op.izvrsi(m, null);
+    }
+
+    public void obrisiMesto(Mesto m) throws Exception {
+        ObrisiMesto op = new ObrisiMesto();
+        op.izvrsi(m, null);
     }
 }
