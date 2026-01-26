@@ -11,7 +11,7 @@ public class KreirajZanr extends ApstraktnaGenerickaOperacija {
             throw new Exception("Sistem ne moze da doda zanr.");
         }
         Zanr z = (Zanr) param;
-        if (z.getNaziv() == null || z.getNaziv().isEmpty()) {
+        if (z.getNaziv() == null || z.getNaziv().trim().isEmpty()) {
             throw new Exception("Naziv zanra je obavezan.");
         }
     }
