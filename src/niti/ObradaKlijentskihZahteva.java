@@ -5,6 +5,7 @@ import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
 import domen.Zanr;
+import domen.Uloga;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -187,6 +188,37 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje zanra."));
                         } else {
                             controller.Controller.getInstanca().obrisiZanr(zanrBrisanje);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case KREIRAJ_ULOGA:
+                        Uloga uloga = (Uloga) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje uloge."));
+                        } else {
+                            controller.Controller.getInstanca().kreirajUloga(uloga);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case UCITAJ_ULOGE:
+                        List<Uloga> uloge = controller.Controller.getInstanca().ucitajUloge();
+                        odgovor.setOdgovor(uloge);
+                        break;
+                    case IZMENI_ULOGA:
+                        Uloga ulogaIzmena = (Uloga) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje uloge."));
+                        } else {
+                            controller.Controller.getInstanca().izmeniUloga(ulogaIzmena);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case OBRISI_ULOGA:
+                        Uloga ulogaBrisanje = (Uloga) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje uloge."));
+                        } else {
+                            controller.Controller.getInstanca().obrisiUloga(ulogaBrisanje);
                             odgovor.setOdgovor(null);
                         }
                         break;

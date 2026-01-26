@@ -8,6 +8,7 @@ import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
+import domen.Uloga;
 import domen.Zanr;
 import java.util.List;
 import operacije.ansambli.IzmenaAnsambla;
@@ -28,6 +29,10 @@ import operacije.zanr.IzmeniZanr;
 import operacije.zanr.KreirajZanr;
 import operacije.zanr.ObrisiZanr;
 import operacije.zanr.UcitajZanrove;
+import operacije.uloga.IzmeniUloga;
+import operacije.uloga.KreirajUloga;
+import operacije.uloga.ObrisiUloga;
+import operacije.uloga.UcitajUloge;
 
 /**
  *
@@ -171,5 +176,29 @@ public class Controller {
     public void obrisiZanr(Zanr z) throws Exception {
         ObrisiZanr op = new ObrisiZanr();
         op.izvrsi(z, null);
+    }
+
+    public void kreirajUloga(Uloga u) throws Exception {
+        KreirajUloga op = new KreirajUloga();
+        op.izvrsi(u, null);
+    }
+
+    public List<Uloga> ucitajUloge() {
+        UcitajUloge op = new UcitajUloge();
+        try {
+            op.izvrsi(null, null);
+        } catch (Exception ex) {
+        }
+        return op.getUloge();
+    }
+
+    public void izmeniUloga(Uloga u) throws Exception {
+        IzmeniUloga op = new IzmeniUloga();
+        op.izvrsi(u, null);
+    }
+
+    public void obrisiUloga(Uloga u) throws Exception {
+        ObrisiUloga op = new ObrisiUloga();
+        op.izvrsi(u, null);
     }
 }
