@@ -3,6 +3,7 @@ package operacije.pomocne;
 import domen.Ansambl;
 import domen.ClanDrustva;
 import domen.Ucesce;
+import domen.Uloga;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
 
         List<Ansambl> sviAnsambli = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), null);
         List<ClanDrustva> sviClanovi = (List<ClanDrustva>) (List<?>) broker.getAll(new ClanDrustva(), null);
+        List<Uloga> sveUloge = (List<Uloga>) (List<?>) broker.getAll(new Uloga(), null);
 
         Map<Integer, Ansambl> ansPoId = new HashMap<>();
         if (sviAnsambli != null) {
@@ -37,6 +39,13 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
         if (sviClanovi != null) {
             for (ClanDrustva c : sviClanovi) {
                 clanPoId.put(c.getClanID(), c);
+            }
+        }
+
+        Map<Integer, String> nazivUlogePoId = new HashMap<>();
+        if (sveUloge != null) {
+            for (Uloga uloga : sveUloge) {
+                nazivUlogePoId.put(uloga.getUlogaID(), uloga.getNaziv());
             }
         }
 
@@ -65,6 +74,21 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
                         ClanDrustva stub = new ClanDrustva();
                         stub.setClanID(clanId);
                         u.setClan(stub);
+                    }
+                }
+
+                // Map int uloga ID to naziv for display
+                String ulogaStr = u.getUloga();
+                if (ulogaStr != null && !ulogaStr.trim().isEmpty()) {
+                    try {
+                        int ulogaId = Integer.parseInt(ulogaStr.trim());
+                        String naziv = nazivUlogePoId.get(ulogaId);
+                        if (naziv != null) {
+                            u.setUloga(naziv);
+                        } else {
+                            u.setUloga("Uloga #" + ulogaId);
+                        }
+                    } catch (NumberFormatException ignored) {
                     }
                 }
             }
