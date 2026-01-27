@@ -3,6 +3,7 @@ package niti;
 import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
+import domen.Dogadjaj;
 import domen.Mesto;
 import domen.Ucesce;
 import domen.Zanr;
@@ -251,6 +252,37 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje mesta."));
                         } else {
                             controller.Controller.getInstanca().obrisiMesto(mestoBrisanje);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case KREIRAJ_DOGADJAJ:
+                        Dogadjaj dogadjaj = (Dogadjaj) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje događaja."));
+                        } else {
+                            controller.Controller.getInstanca().kreirajDogadjaj(dogadjaj);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case UCITAJ_DOGADJAJE:
+                        List<Dogadjaj> dogadjaji = controller.Controller.getInstanca().ucitajDogadjaje();
+                        odgovor.setOdgovor(dogadjaji);
+                        break;
+                    case IZMENI_DOGADJAJ:
+                        Dogadjaj dogadjajIzmena = (Dogadjaj) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje događaja."));
+                        } else {
+                            controller.Controller.getInstanca().izmeniDogadjaj(dogadjajIzmena);
+                            odgovor.setOdgovor(null);
+                        }
+                        break;
+                    case OBRISI_DOGADJAJ:
+                        Dogadjaj dogadjajBrisanje = (Dogadjaj) zahtev.getParametar();
+                        if (prijavljeniAdmin == null) {
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje događaja."));
+                        } else {
+                            controller.Controller.getInstanca().obrisiDogadjaj(dogadjajBrisanje);
                             odgovor.setOdgovor(null);
                         }
                         break;

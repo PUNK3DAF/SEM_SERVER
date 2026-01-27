@@ -7,6 +7,7 @@ package controller;
 import domen.Administrator;
 import domen.Ansambl;
 import domen.ClanDrustva;
+import domen.Dogadjaj;
 import domen.Mesto;
 import domen.Ucesce;
 import domen.Uloga;
@@ -34,6 +35,10 @@ import operacije.uloga.IzmeniUlogu;
 import operacije.uloga.KreirajUlogu;
 import operacije.uloga.ObrisiUlogu;
 import operacije.uloga.UcitajUloge;
+import operacije.dogadjaj.IzmeniDogadjaj;
+import operacije.dogadjaj.KreirajDogadjaj;
+import operacije.dogadjaj.ObrisiDogadjaj;
+import operacije.dogadjaj.UcitajDogadjaje;
 import operacije.mesto.IzmeniMesto;
 import operacije.mesto.KreirajMesto;
 import operacije.mesto.ObrisiMesto;
@@ -229,5 +234,29 @@ public class Controller {
     public void obrisiMesto(Mesto m) throws Exception {
         ObrisiMesto op = new ObrisiMesto();
         op.izvrsi(m, null);
+    }
+
+    public void kreirajDogadjaj(Dogadjaj d) throws Exception {
+        KreirajDogadjaj op = new KreirajDogadjaj();
+        op.izvrsi(d, null);
+    }
+
+    public List<Dogadjaj> ucitajDogadjaje() {
+        UcitajDogadjaje op = new UcitajDogadjaje();
+        try {
+            op.izvrsi(null, null);
+        } catch (Exception ex) {
+        }
+        return op.getDogadjaji();
+    }
+
+    public void izmeniDogadjaj(Dogadjaj d) throws Exception {
+        IzmeniDogadjaj op = new IzmeniDogadjaj();
+        op.izvrsi(d, null);
+    }
+
+    public void obrisiDogadjaj(Dogadjaj d) throws Exception {
+        ObrisiDogadjaj op = new ObrisiDogadjaj();
+        op.izvrsi(d, null);
     }
 }
