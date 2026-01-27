@@ -29,7 +29,7 @@ public class IzmeniDogadjaj extends ApstraktnaOperacija {
             throw new Exception("Datum događaja je obavezan!");
         }
 
-        if (d.getMesto() == null || d.getMesto().getMestoID() == null) {
+        if (d.getMestoID() <= 0) {
             throw new Exception("Mesto događaja nije izabrano!");
         }
     }
