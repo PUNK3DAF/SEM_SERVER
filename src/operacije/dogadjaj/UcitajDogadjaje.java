@@ -1,43 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacije.dogadjaj;
 
-import domen.ApstraktniDomenskiObjekat;
 import domen.Dogadjaj;
 import domen.Mesto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import operacije.ApstraktnaOperacija;
+import operacije.ApstraktnaGenerickaOperacija;
 
-/**
- *
- * @author vldmrk
- */
-public class UcitajDogadjaje extends ApstraktnaOperacija {
+public class UcitajDogadjaje extends ApstraktnaGenerickaOperacija {
 
     private List<Dogadjaj> dogadjaji;
 
     @Override
-    public void preduslovi() throws Exception {
+    protected void preduslovi(Object param) throws Exception {
     }
 
     @Override
-    public void izvrsiOperaciju() throws Exception {
+    protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         // Load all events
-        List<ApstraktniDomenskiObjekat> dogadjaji_ado = repository.Broker.getInstanca().getAll(new Dogadjaj(), null);
-        dogadjaji = new java.util.ArrayList<>();
-        for (ApstraktniDomenskiObjekat obj : dogadjaji_ado) {
-            dogadjaji.add((Dogadjaj) obj);
-        }
+        dogadjaji = (List<Dogadjaj>) (List<?>) broker.getAll(new Dogadjaj(), null);
         
         // Load all places for mapping
-        List<ApstraktniDomenskiObjekat> mesta_ado = repository.Broker.getInstanca().getAll(new Mesto(), null);
+        List<Mesto> mesta = (List<Mesto>) (List<?>) broker.getAll(new Mesto(), null);
         Map<Integer, Mesto> mestoMap = new HashMap<>();
-        for (ApstraktniDomenskiObjekat obj : mesta_ado) {
-            Mesto m = (Mesto) obj;
+        for (Mesto m : mesta) {
             mestoMap.put(m.getMestoID(), m);
         }
         

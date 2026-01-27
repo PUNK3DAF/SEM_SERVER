@@ -1,25 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacije.dogadjaj;
 
 import domen.Dogadjaj;
-import operacije.ApstraktnaOperacija;
+import operacije.ApstraktnaGenerickaOperacija;
 
-/**
- *
- * @author vldmrk
- */
-public class IzmeniDogadjaj extends ApstraktnaOperacija {
+public class IzmeniDogadjaj extends ApstraktnaGenerickaOperacija {
 
     @Override
-    public void preduslovi() throws Exception {
-        if (objekat == null || !(objekat instanceof Dogadjaj)) {
+    protected void preduslovi(Object param) throws Exception {
+        if (param == null || !(param instanceof Dogadjaj)) {
             throw new Exception("Nije prosledjen validan dogadjaj!");
         }
 
-        Dogadjaj d = (Dogadjaj) objekat;
+        Dogadjaj d = (Dogadjaj) param;
 
         if (d.getNaziv() == null || d.getNaziv().trim().isEmpty()) {
             throw new Exception("Naziv događaja ne sme biti prazan!");
@@ -35,10 +27,8 @@ public class IzmeniDogadjaj extends ApstraktnaOperacija {
     }
 
     @Override
-    public void izvrsiOperaciju() throws Exception {
-        Dogadjaj d = (Dogadjaj) objekat;
-        d.setNaziv(d.getNaziv().trim());
-        repository.Broker.getInstanca().edit(d);
+    protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
+        Dogadjaj d = (Dogadjaj) param;
+        broker.edit(d);
     }
-
 }
