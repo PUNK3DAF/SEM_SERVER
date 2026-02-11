@@ -27,21 +27,15 @@ import operacije.clanovi.NadjiClanaDrustva;
 import operacije.clanovi.UcitajClanaDrustva;
 import operacije.login.AdminLogin;
 import operacije.pomocne.UcitajUcesca;
-import operacije.zanr.IzmeniZanr;
 import operacije.zanr.KreirajZanr;
-import operacije.zanr.ObrisiZanr;
 import operacije.zanr.UcitajZanrove;
-import operacije.uloga.IzmeniUlogu;
 import operacije.uloga.KreirajUlogu;
-import operacije.uloga.ObrisiUlogu;
 import operacije.uloga.UcitajUloge;
 import operacije.dogadjaj.IzmeniDogadjaj;
 import operacije.dogadjaj.KreirajDogadjaj;
 import operacije.dogadjaj.ObrisiDogadjaj;
 import operacije.dogadjaj.UcitajDogadjaje;
-import operacije.mesto.IzmeniMesto;
 import operacije.mesto.KreirajMesto;
-import operacije.mesto.ObrisiMesto;
 import operacije.mesto.UcitajMesta;
 
 /**
@@ -178,16 +172,6 @@ public class Controller {
         return op.getZanrovi();
     }
 
-    public void izmeniZanr(Zanr z) throws Exception {
-        IzmeniZanr op = new IzmeniZanr();
-        op.izvrsi(z, null);
-    }
-
-    public void obrisiZanr(Zanr z) throws Exception {
-        ObrisiZanr op = new ObrisiZanr();
-        op.izvrsi(z, null);
-    }
-
     public void kreirajUlogu(Uloga u) throws Exception {
         KreirajUlogu op = new KreirajUlogu();
         op.izvrsi(u, null);
@@ -202,16 +186,6 @@ public class Controller {
         return op.getUloge();
     }
 
-    public void izmeniUlogu(Uloga u) throws Exception {
-        IzmeniUlogu op = new IzmeniUlogu();
-        op.izvrsi(u, null);
-    }
-
-    public void obrisiUlogu(Uloga u) throws Exception {
-        ObrisiUlogu op = new ObrisiUlogu();
-        op.izvrsi(u, null);
-    }
-
     public void kreirajMesto(Mesto m) throws Exception {
         KreirajMesto op = new KreirajMesto();
         op.izvrsi(m, null);
@@ -224,16 +198,6 @@ public class Controller {
         } catch (Exception ex) {
         }
         return op.getMesta();
-    }
-
-    public void izmeniMesto(Mesto m) throws Exception {
-        IzmeniMesto op = new IzmeniMesto();
-        op.izvrsi(m, null);
-    }
-
-    public void obrisiMesto(Mesto m) throws Exception {
-        ObrisiMesto op = new ObrisiMesto();
-        op.izvrsi(m, null);
     }
 
     public void kreirajDogadjaj(Dogadjaj d) throws Exception {

@@ -175,24 +175,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<Zanr> zanrovi = controller.Controller.getInstanca().ucitajZanrove();
                         odgovor.setOdgovor(zanrovi);
                         break;
-                    case IZMENI_ZANR:
-                        Zanr zanrIzmena = (Zanr) zahtev.getParametar();
-                        if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje zanra."));
-                        } else {
-                            controller.Controller.getInstanca().izmeniZanr(zanrIzmena);
-                            odgovor.setOdgovor(null);
-                        }
-                        break;
-                    case OBRISI_ZANR:
-                        Zanr zanrBrisanje = (Zanr) zahtev.getParametar();
-                        if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje zanra."));
-                        } else {
-                            controller.Controller.getInstanca().obrisiZanr(zanrBrisanje);
-                            odgovor.setOdgovor(null);
-                        }
-                        break;
                     case KREIRAJ_ULOGU:
                         Uloga uloga = (Uloga) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
@@ -206,24 +188,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<Uloga> uloge = controller.Controller.getInstanca().ucitajUloge();
                         odgovor.setOdgovor(uloge);
                         break;
-                    case IZMENI_ULOGU:
-                        Uloga ulogaIzmena = (Uloga) zahtev.getParametar();
-                        if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje uloge."));
-                        } else {
-                            controller.Controller.getInstanca().izmeniUlogu(ulogaIzmena);
-                            odgovor.setOdgovor(null);
-                        }
-                        break;
-                    case OBRISI_ULOGU:
-                        Uloga ulogaBrisanje = (Uloga) zahtev.getParametar();
-                        if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje uloge."));
-                        } else {
-                            controller.Controller.getInstanca().obrisiUlogu(ulogaBrisanje);
-                            odgovor.setOdgovor(null);
-                        }
-                        break;
                     case KREIRAJ_MESTO:
                         Mesto mesto = (Mesto) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
@@ -236,24 +200,6 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case UCITAJ_MESTA:
                         List<Mesto> mesta = controller.Controller.getInstanca().ucitajMesta();
                         odgovor.setOdgovor(mesta);
-                        break;
-                    case IZMENI_MESTO:
-                        Mesto mestoIzmena = (Mesto) zahtev.getParametar();
-                        if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno menjanje mesta."));
-                        } else {
-                            controller.Controller.getInstanca().izmeniMesto(mestoIzmena);
-                            odgovor.setOdgovor(null);
-                        }
-                        break;
-                    case OBRISI_MESTO:
-                        Mesto mestoBrisanje = (Mesto) zahtev.getParametar();
-                        if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno brisanje mesta."));
-                        } else {
-                            controller.Controller.getInstanca().obrisiMesto(mestoBrisanje);
-                            odgovor.setOdgovor(null);
-                        }
                         break;
                     case KREIRAJ_DOGADJAJ:
                         Dogadjaj dogadjaj = (Dogadjaj) zahtev.getParametar();
