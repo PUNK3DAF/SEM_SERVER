@@ -19,15 +19,7 @@ public class UcitajAnsamble extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         List<Ansambl> svi = broker.getAll(new Ansambl(), null);
-        java.util.List<Ansambl> aktivni = new java.util.ArrayList<>();
-        if (svi != null) {
-            for (Ansambl a : svi) {
-                if (a != null && a.getObrisan() == 0) {
-                    aktivni.add(a);
-                }
-            }
-        }
-        ansambli = aktivni;
+        ansambli = (svi == null) ? new java.util.ArrayList<>() : svi;
     }
 
     public List<Ansambl> getAnsambli() {

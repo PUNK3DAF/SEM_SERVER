@@ -34,8 +34,7 @@ public class ObrisiAnsambl extends ApstraktnaGenerickaOperacija {
             }
         }
 
-        a.setObrisan(1);
-        broker.edit(a);
+        broker.delete(a);
     }
 
 }

@@ -23,7 +23,7 @@ public class UcitajAnsamblaPoVrednosti extends ApstraktnaGenerickaOperacija {
         java.util.List<Ansambl> filtrirani = new java.util.ArrayList<>();
         if (svi != null) {
             for (Ansambl a : svi) {
-                if (a == null || a.getObrisan() != 0) continue;
+                if (a == null) continue;
                 String ime = a.getImeAnsambla() == null ? "" : a.getImeAnsambla().toLowerCase();
                 String opis = a.getOpisAnsambla() == null ? "" : a.getOpisAnsambla().toLowerCase();
                 if (needle.isEmpty() || ime.contains(needle) || opis.contains(needle)) {

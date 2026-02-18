@@ -1,6 +1,9 @@
 package operacije.clanovi;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.ClanDrustva;
+import domen.Ucesce;
+import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
 /**
@@ -19,8 +22,23 @@ public class ObrisiClanaDrustva extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         ClanDrustva c = (ClanDrustva) param;
-        c.setObrisan(1);
-        broker.edit(c);
+
+        Ucesce probe = new Ucesce();
+        probe.setClan(c);
+        List<ApstraktniDomenskiObjekat> ucesca = broker.getAll(probe, null);
+
+        if (ucesca != null && !ucesca.isEmpty()) {
+            for (ApstraktniDomenskiObjekat u : ucesca) {
+                if (u instanceof Ucesce) {
+                    Ucesce ux = (Ucesce) u;
+                    if (ux.getClan() != null && ux.getClan().getClanID() == c.getClanID()) {
+                        broker.delete(u);
+                    }
+                }
+            }
+        }
+
+        broker.delete(c);
     }
 
 }

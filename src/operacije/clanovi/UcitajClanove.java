@@ -19,15 +19,7 @@ public class UcitajClanove extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         List<ClanDrustva> svi = broker.getAll(new ClanDrustva(), null);
-        java.util.List<ClanDrustva> aktivni = new java.util.ArrayList<>();
-        if (svi != null) {
-            for (ClanDrustva c : svi) {
-                if (c != null && c.getObrisan() == 0) {
-                    aktivni.add(c);
-                }
-            }
-        }
-        clanovi = aktivni;
+        clanovi = (svi == null) ? new java.util.ArrayList<>() : svi;
     }
 
     public List<ClanDrustva> getClanovi() {

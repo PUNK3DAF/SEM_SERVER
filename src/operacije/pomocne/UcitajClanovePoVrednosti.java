@@ -23,7 +23,7 @@ public class UcitajClanovePoVrednosti extends ApstraktnaGenerickaOperacija {
         java.util.List<ClanDrustva> filtrirani = new java.util.ArrayList<>();
         if (svi != null) {
             for (ClanDrustva c : svi) {
-                if (c == null || c.getObrisan() != 0) continue;
+                if (c == null) continue;
                 String ime = c.getClanIme() == null ? "" : c.getClanIme().toLowerCase();
                 String tel = c.getClanBrTel() == null ? "" : c.getClanBrTel().toLowerCase();
                 if (needle.isEmpty() || ime.contains(needle) || tel.contains(needle)) {
