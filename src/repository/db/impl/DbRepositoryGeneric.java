@@ -1,6 +1,7 @@
 package repository.db.impl;
 
 import domen.ApstraktniDomenskiObjekat;
+import domen.Ansambl;
 import java.util.ArrayList;
 import java.util.List;
 import repository.db.DbConnectionFactory;
@@ -14,6 +15,12 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
     public List<ApstraktniDomenskiObjekat> getAll(ApstraktniDomenskiObjekat param, String uslov) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         String upit = "SELECT * FROM " + param.vratiNazivTabele();
+        
+        // Za Ansambl, dodaj LEFT JOIN sa zanr tabelom
+        if (param instanceof Ansambl) {
+            upit = "SELECT ansambl.*, zanr.naziv as zanrNaziv FROM ansambl LEFT JOIN zanr ON ansambl.zanr = zanr.zanrID";
+        }
+        
         if (uslov != null) {
             upit += uslov;
         }
