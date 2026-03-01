@@ -18,17 +18,14 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         String upit = "SELECT * FROM " + param.vratiNazivTabele();
         
-        // Za Ansambl, dodaj LEFT JOIN sa zanr tabelom
         if (param instanceof Ansambl) {
             upit = "SELECT ansambl.*, zanr.naziv as zanrNaziv FROM ansambl LEFT JOIN zanr ON ansambl.zanr = zanr.zanrID";
         }
-        // Za Dogadjaj, dodaj LEFT JOIN sa mesto i ansambl tabelom
         else if (param instanceof Dogadjaj) {
             upit = "SELECT dogadjaj.*, mesto.naziv as mestoNaziv, ansambl.imeAnsambla FROM dogadjaj " +
                    "LEFT JOIN mesto ON dogadjaj.mesto = mesto.mestoID " +
                    "LEFT JOIN ansambl ON dogadjaj.ansambl = ansambl.ansamblID";
         }
-        // Za Ucesce, dodaj LEFT JOIN sa clan, ansambl i uloga tabelom
         else if (param instanceof Ucesce) {
             upit = "SELECT ucesce.clan, ucesce.ansambl, ucesce.uloga as ulogaID, clandrustva.clanIme, ansambl.imeAnsambla, uloga.naziv as ulogaNaziv " +
                    "FROM ucesce " +
