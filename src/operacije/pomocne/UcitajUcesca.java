@@ -85,6 +85,8 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
                         u.setUloga(fullUloga);
                     }
                 }
+            }
+        }
     }
 
     public List<Ucesce> getListaUcesca() {
