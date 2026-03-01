@@ -21,7 +21,7 @@ public class IzmeniDogadjaj extends ApstraktnaGenerickaOperacija {
             throw new Exception("Datum događaja je obavezan!");
         }
 
-        if (d.getMestoID() <= 0) {
+        if (d.getMesto() == null || d.getMesto().getMestoID() <= 0) {
             throw new Exception("Mesto događaja nije izabrano!");
         }
     }

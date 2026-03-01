@@ -42,10 +42,10 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
             }
         }
 
-        Map<Integer, String> nazivUlogePoId = new HashMap<>();
+        Map<Integer, Uloga> ulogaPoId = new HashMap<>();
         if (sveUloge != null) {
             for (Uloga uloga : sveUloge) {
-                nazivUlogePoId.put(uloga.getUlogaID(), uloga.getNaziv());
+                ulogaPoId.put(uloga.getUlogaID(), uloga);
             }
         }
 
@@ -77,22 +77,14 @@ public class UcitajUcesca extends ApstraktnaGenerickaOperacija {
                     }
                 }
 
-                // Map int uloga ID to naziv for display
-                String ulogaStr = u.getUloga();
-                if (ulogaStr != null && !ulogaStr.trim().isEmpty()) {
-                    try {
-                        int ulogaId = Integer.parseInt(ulogaStr.trim());
-                        String naziv = nazivUlogePoId.get(ulogaId);
-                        if (naziv != null) {
-                            u.setUloga(naziv);
-                        } else {
-                            u.setUloga("Uloga #" + ulogaId);
-                        }
-                    } catch (NumberFormatException ignored) {
+                // Map uloga ID to Uloga object for full data
+                if (u.getUloga() != null) {
+                    int ulogaId = u.getUloga().getUlogaID();
+                    Uloga fullUloga = ulogaPoId.get(ulogaId);
+                    if (fullUloga != null) {
+                        u.setUloga(fullUloga);
                     }
                 }
-            }
-        }
     }
 
     public List<Ucesce> getListaUcesca() {

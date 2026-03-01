@@ -21,31 +21,8 @@ public class UcitajDogadjaje extends ApstraktnaGenerickaOperacija {
         // Load all events
         dogadjaji = (List<Dogadjaj>) (List<?>) broker.getAll(new Dogadjaj(), null);
         
-        // Load all places for mapping
-        List<Mesto> mesta = (List<Mesto>) (List<?>) broker.getAll(new Mesto(), null);
-        Map<Integer, Mesto> mestoMap = new HashMap<>();
-        for (Mesto m : mesta) {
-            mestoMap.put(m.getMestoID(), m);
-        }
-
-        // Load all ensembles for mapping
-        List<Ansambl> ansambli = (List<Ansambl>) (List<?>) broker.getAll(new Ansambl(), null);
-        Map<Integer, Ansambl> ansamblMap = new HashMap<>();
-        for (Ansambl a : ansambli) {
-            ansamblMap.put(a.getAnsamblID(), a);
-        }
-        
-        // Set place objects in events
-        for (Dogadjaj d : dogadjaji) {
-            Mesto m = mestoMap.get(d.getMestoID());
-            if (m != null) {
-                d.setMesto(m);
-            }
-            Ansambl a = ansamblMap.get(d.getAnsamblID());
-            if (a != null) {
-                d.setAnsambl(a);
-            }
-        }
+        // Events already have Mesto and Ansambl objects populated from database
+        // No need to manually map them as vratiListu() in Dogadjaj class already does this
     }
 
     public List<Dogadjaj> getDogadjaji() {
