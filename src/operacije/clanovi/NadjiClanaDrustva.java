@@ -27,7 +27,10 @@ public class NadjiClanaDrustva extends ApstraktnaGenerickaOperacija {
         
         if (svi != null) {
             for (ClanDrustva c : svi) {
-                if (c.getClanIme() != null && c.getClanIme().toLowerCase().contains(vrednost.toLowerCase())) {
+                String needle = vrednost.toLowerCase();
+                String ime = c.getClanIme() == null ? "" : c.getClanIme().toLowerCase();
+                String email = c.getClanEmail() == null ? "" : c.getClanEmail().toLowerCase();
+                if (ime.contains(needle) || email.contains(needle)) {
                     clanovi.add(c);
                 }
             }

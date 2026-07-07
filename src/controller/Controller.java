@@ -37,6 +37,7 @@ import operacije.dogadjaj.ObrisiDogadjaj;
 import operacije.dogadjaj.UcitajDogadjaje;
 import operacije.mesto.KreirajMesto;
 import operacije.mesto.UcitajMesta;
+import servis.EmailService;
 
 /**
  *
@@ -203,6 +204,7 @@ public class Controller {
     public void kreirajDogadjaj(Dogadjaj d) throws Exception {
         KreirajDogadjaj op = new KreirajDogadjaj();
         op.izvrsi(d, null);
+        pokreniSlanjeMejlovaZaDogadjaj(d);
     }
 
     public List<Dogadjaj> ucitajDogadjaje() {
@@ -222,5 +224,13 @@ public class Controller {
     public void obrisiDogadjaj(Dogadjaj d) throws Exception {
         ObrisiDogadjaj op = new ObrisiDogadjaj();
         op.izvrsi(d, null);
+    }
+
+    private void pokreniSlanjeMejlovaZaDogadjaj(Dogadjaj d) {
+        try {
+            new EmailService().posaljiObavestenjeODogadjaju(d, ucitajUcesca());
+        } catch (Exception ex) {
+            System.err.println("Slanje mejla za dogadjaj nije uspelo: " + ex.getMessage());
+        }
     }
 }

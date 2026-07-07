@@ -25,8 +25,9 @@ public class UcitajClanovePoVrednosti extends ApstraktnaGenerickaOperacija {
             for (ClanDrustva c : svi) {
                 if (c == null) continue;
                 String ime = c.getClanIme() == null ? "" : c.getClanIme().toLowerCase();
+                String email = c.getClanEmail() == null ? "" : c.getClanEmail().toLowerCase();
                 String tel = c.getClanBrTel() == null ? "" : c.getClanBrTel().toLowerCase();
-                if (needle.isEmpty() || ime.contains(needle) || tel.contains(needle)) {
+                if (needle.isEmpty() || ime.contains(needle) || email.contains(needle) || tel.contains(needle)) {
                     filtrirani.add(c);
                 }
             }

@@ -20,6 +20,11 @@ public class IzmeniClanaDrustva extends ApstraktnaGenerickaOperacija {
             throw new Exception("NEPRAVILAN UNOS: ime clana je obavezno.");
         }
 
+        String[] deloviImena = c.getClanIme().trim().split("\\s+");
+        if (deloviImena.length < 2) {
+            throw new Exception("NEPRAVILAN UNOS: ime i prezime clana su obavezni.");
+        }
+
         if (c.getClanPol() == null || c.getClanPol().trim().isEmpty()) {
             throw new Exception("NEPRAVILAN UNOS: pol clana je obavezan (M ili Z).");
         } else {
@@ -37,6 +42,12 @@ public class IzmeniClanaDrustva extends ApstraktnaGenerickaOperacija {
         if (c.getClanBrTel() == null || c.getClanBrTel().trim().isEmpty()) {
             throw new Exception("NEPRAVILAN UNOS: broj telefona clana je obavezan.");
         }
+
+        String email = ClanDrustva.formirajEmail(c.getClanIme());
+        if (!ClanDrustva.jeValidanEmail(email)) {
+            throw new Exception("NEPRAVILAN UNOS: mejl nije moguce formirati iz imena i prezimena.");
+        }
+        c.setClanEmail(email);
 
     }
 
