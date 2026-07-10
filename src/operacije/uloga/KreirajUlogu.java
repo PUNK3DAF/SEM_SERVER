@@ -8,7 +8,7 @@ public class KreirajUlogu extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Uloga)) {
-            throw new Exception("Sistem ne moze da doda ulogu.");
+            throw new Exception("Sistem ne može da doda ulogu.");
         }
         Uloga u = (Uloga) param;
         if (u.getNaziv() == null || u.getNaziv().trim().isEmpty()) {
