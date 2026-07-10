@@ -231,6 +231,7 @@ public class Controller {
             new EmailService().posaljiObavestenjeODogadjaju(d, ucitajUcesca());
         } catch (Exception ex) {
             System.err.println("Slanje mejla za dogadjaj nije uspelo: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

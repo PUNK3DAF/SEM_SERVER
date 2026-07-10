@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -18,9 +19,15 @@ import konfiguracija.Konfiguracija;
 
 public class EmailService {
 
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
+
     public void posaljiObavestenjeODogadjaju(Dogadjaj dogadjaj, List<Ucesce> ucesca) throws Exception {
         List<String> adrese = prikupiAdreseZaDogadjaj(dogadjaj, ucesca);
+        System.out.println("[MAIL] Dogadjaj=" + (dogadjaj == null ? "null" : dogadjaj.getNaziv())
+                + ", ansamblId=" + (dogadjaj == null || dogadjaj.getAnsambl() == null ? "null" : dogadjaj.getAnsambl().getAnsamblID())
+                + ", broj_primalaca=" + adrese.size());
         if (adrese.isEmpty()) {
+            System.out.println("[MAIL] Nema primalaca za slanje. Proveri ucesca i clanEmail.");
             return;
         }
 
@@ -31,9 +38,14 @@ public class EmailService {
         String from = Konfiguracija.getInstanca().getKonfiguracija("smtp.from");
         String auth = Konfiguracija.getInstanca().getKonfiguracija("smtp.auth");
         String starttls = Konfiguracija.getInstanca().getKonfiguracija("smtp.starttls");
+        String debug = Konfiguracija.getInstanca().getKonfiguracija("smtp.debug");
 
         if (host == null || host.trim().isEmpty() || from == null || from.trim().isEmpty()) {
             throw new IllegalStateException("SMTP konfiguracija nije podesena.");
+        }
+
+        if (Boolean.parseBoolean(auth) && (username == null || username.trim().isEmpty())) {
+            throw new IllegalStateException("SMTP auth je ukljucen, ali smtp.username nije unet.");
         }
 
         Properties props = new Properties();
@@ -41,29 +53,47 @@ public class EmailService {
         props.put("mail.smtp.port", (port == null || port.trim().isEmpty()) ? "587" : port.trim());
         props.put("mail.smtp.auth", String.valueOf(Boolean.parseBoolean(auth)));
         props.put("mail.smtp.starttls.enable", String.valueOf(Boolean.parseBoolean(starttls)));
+        props.put("mail.smtp.connectiontimeout", "10000");
+        props.put("mail.smtp.timeout", "10000");
+        props.put("mail.smtp.writetimeout", "10000");
+
+        final String normalizedPassword = password == null ? "" : password.replaceAll("\\s+", "");
 
         Session session;
         if (Boolean.parseBoolean(auth) && username != null && !username.trim().isEmpty()) {
             session = Session.getInstance(props, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username.trim(), password == null ? "" : password);
+                    return new PasswordAuthentication(username.trim(), normalizedPassword);
                 }
             });
         } else {
             session = Session.getInstance(props);
         }
+        session.setDebug(Boolean.parseBoolean(debug));
+
+        System.out.println("[MAIL] SMTP host=" + host + ", port=" + props.getProperty("mail.smtp.port")
+                + ", auth=" + props.getProperty("mail.smtp.auth")
+                + ", starttls=" + props.getProperty("mail.smtp.starttls.enable")
+                + ", from=" + from);
 
         String subject = napraviNaslov(dogadjaj);
         String body = napraviTelo(dogadjaj);
 
         for (String adresa : adrese) {
+            if (!EMAIL_PATTERN.matcher(adresa).matches()) {
+                System.err.println("[MAIL] Preskacem neispravnu email adresu: " + adresa);
+                continue;
+            }
+
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from.trim()));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(adresa));
             message.setSubject(subject, "UTF-8");
             message.setText(body, "UTF-8");
+            System.out.println("[MAIL] Pokusaj slanja na: " + adresa);
             Transport.send(message);
+            System.out.println("[MAIL] Uspesno poslato na: " + adresa);
         }
     }
 
