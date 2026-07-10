@@ -23,11 +23,11 @@ public class EmailService {
 
     public void posaljiObavestenjeODogadjaju(Dogadjaj dogadjaj, List<Ucesce> ucesca) throws Exception {
         List<String> adrese = prikupiAdreseZaDogadjaj(dogadjaj, ucesca);
-        System.out.println("[MAIL] Dogadjaj=" + (dogadjaj == null ? "null" : dogadjaj.getNaziv())
+        System.out.println("[MAIL] Događaj=" + (dogadjaj == null ? "null" : dogadjaj.getNaziv())
                 + ", ansamblId=" + (dogadjaj == null || dogadjaj.getAnsambl() == null ? "null" : dogadjaj.getAnsambl().getAnsamblID())
                 + ", broj_primalaca=" + adrese.size());
         if (adrese.isEmpty()) {
-            System.out.println("[MAIL] Nema primalaca za slanje. Proveri ucesca i clanEmail.");
+            System.out.println("[MAIL] Nema primalaca za slanje. Proveri učešća i članEmail.");
             return;
         }
 
@@ -41,11 +41,11 @@ public class EmailService {
         String debug = Konfiguracija.getInstanca().getKonfiguracija("smtp.debug");
 
         if (host == null || host.trim().isEmpty() || from == null || from.trim().isEmpty()) {
-            throw new IllegalStateException("SMTP konfiguracija nije podesena.");
+            throw new IllegalStateException("SMTP konfiguracija nije podešena.");
         }
 
         if (Boolean.parseBoolean(auth) && (username == null || username.trim().isEmpty())) {
-            throw new IllegalStateException("SMTP auth je ukljucen, ali smtp.username nije unet.");
+            throw new IllegalStateException("SMTP auth je uključen, ali smtp.username nije unet.");
         }
 
         Properties props = new Properties();
@@ -82,7 +82,7 @@ public class EmailService {
 
         for (String adresa : adrese) {
             if (!EMAIL_PATTERN.matcher(adresa).matches()) {
-                System.err.println("[MAIL] Preskacem neispravnu email adresu: " + adresa);
+                System.err.println("[MAIL] Preskačem neispravnu email adresu: " + adresa);
                 continue;
             }
 
@@ -91,9 +91,9 @@ public class EmailService {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(adresa));
             message.setSubject(subject, "UTF-8");
             message.setText(body, "UTF-8");
-            System.out.println("[MAIL] Pokusaj slanja na: " + adresa);
+            System.out.println("[MAIL] Pokušaj slanja na: " + adresa);
             Transport.send(message);
-            System.out.println("[MAIL] Uspesno poslato na: " + adresa);
+            System.out.println("[MAIL] Uspešno poslato na: " + adresa);
         }
     }
 
