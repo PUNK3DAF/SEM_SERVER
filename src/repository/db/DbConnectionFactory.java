@@ -37,9 +37,9 @@ public class DbConnectionFactory {
                     System.out.println("SERVER DEBUG: konektujem na DB url=" + url + " user=" + user);
                     connection = DriverManager.getConnection(url, user, pass);
                     connection.setAutoCommit(false);
-                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.INFO, "DB connection opened/reopened");
+                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.INFO, "DB konekcija otvorena/ponovo otvorena");
                 } catch (SQLException ex) {
-                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, "Failed to open DB connection", ex);
+                    Logger.getLogger(DbConnectionFactory.class.getName()).log(Level.SEVERE, "Neuspešno otvaranje DB konekcije", ex);
                 }
             }
         } catch (SQLException ex) {

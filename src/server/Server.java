@@ -30,7 +30,7 @@ public class Server extends Thread {
             }
         } catch (IOException ex) {
             if (!kraj) {
-                System.err.println("Greska pri pokretanju servera: " + ex.getMessage());
+                System.err.println("Greška pri pokretanju servera: " + ex.getMessage());
             }
         }
     }
@@ -45,7 +45,7 @@ public class Server extends Thread {
                 serverSoket.close();
             }
         } catch (IOException ex) {
-            System.err.println("Greska pri zaustavljanju servera: " + ex.getMessage());
+            System.err.println("Greška pri zaustavljanju servera: " + ex.getMessage());
         }
     }
 }
