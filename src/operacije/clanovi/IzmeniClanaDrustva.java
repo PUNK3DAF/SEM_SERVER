@@ -43,9 +43,12 @@ public class IzmeniClanaDrustva extends ApstraktnaGenerickaOperacija {
             throw new Exception("NEPRAVILAN UNOS: broj telefona clana je obavezan.");
         }
 
-        String email = ClanDrustva.formirajEmail(c.getClanIme());
+        String email = c.getClanEmail() == null ? "" : c.getClanEmail().trim().toLowerCase();
+        if (email.isEmpty()) {
+            throw new Exception("NEPRAVILAN UNOS: mejl clana je obavezan.");
+        }
         if (!ClanDrustva.jeValidanEmail(email)) {
-            throw new Exception("NEPRAVILAN UNOS: mejl nije moguce formirati iz imena i prezimena.");
+            throw new Exception("NEPRAVILAN UNOS: mejl nije u ispravnom formatu.");
         }
         c.setClanEmail(email);
 
