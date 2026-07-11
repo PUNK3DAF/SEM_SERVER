@@ -15,7 +15,7 @@ public class ObrisiClanaDrustva extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof ClanDrustva)) {
-            throw new Exception("Sistem ne moze da obrise clana drustva.");
+            throw new Exception("Sistem ne može da obriše člana društva.");
         }
     }
 
