@@ -15,7 +15,7 @@ public class AdminLogin extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Administrator)) {
-            throw new Exception("Sistem ne moze da se uloguje.");
+            throw new Exception("Sistem ne može da se uloguje.");
         }
     }
 
@@ -36,13 +36,13 @@ public class AdminLogin extends ApstraktnaGenerickaOperacija {
 
             if (dbUser.equals(trazeniUser) && dbPass.equals(trazeniPass)) {
                 a = ad;
-                System.out.println("  -> Uspesno pronadjen admin: " + a);
+                System.out.println("  -> Uspešno pronađen admin: " + a);
                 return;
             }
         }
 
         a = null;
-        System.out.println("  -> Nije pronadjen odgovarajuci admin (login neuspesan).");
+        System.out.println("  -> Nije pronađen odgovarajući admin (login neuspešan).");
     }
 
     public Administrator getA() {
