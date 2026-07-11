@@ -14,11 +14,11 @@ public class UcitajClanById extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof ClanDrustva)) {
-            throw new Exception("Neispravan parametar za ucitavanje clana po ID.");
+            throw new Exception("Neispravan parametar za učitavanje člana po ID.");
         }
         ClanDrustva c = (ClanDrustva) param;
         if (c.getClanID() <= 0) {
-            throw new Exception("Neispravan ID clana.");
+            throw new Exception("Neispravan ID člana.");
         }
     }
 

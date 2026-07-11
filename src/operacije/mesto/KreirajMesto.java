@@ -8,7 +8,7 @@ public class KreirajMesto extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Mesto)) {
-            throw new Exception("Sistem ne moze da doda mesto.");
+            throw new Exception("Sistem ne može da doda mesto.");
         }
         Mesto m = (Mesto) param;
         if (m.getNaziv() == null || m.getNaziv().trim().isEmpty()) {
