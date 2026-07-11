@@ -12,7 +12,7 @@ public class IzmeniClanaDrustva extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof ClanDrustva)) {
-            throw new Exception("Neispravan parametar za azuriranje člana.");
+            throw new Exception("Neispravan parametar za ažuriranje člana.");
         }
         ClanDrustva c = (ClanDrustva) param;
 
