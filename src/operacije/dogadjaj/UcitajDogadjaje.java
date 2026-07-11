@@ -18,11 +18,7 @@ public class UcitajDogadjaje extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        // Load all events
         dogadjaji = (List<Dogadjaj>) (List<?>) broker.getAll(new Dogadjaj(), null);
-        
-        // Events already have Mesto and Ansambl objects populated from database
-        // No need to manually map them as vratiListu() in Dogadjaj class already does this
     }
 
     public List<Dogadjaj> getDogadjaji() {

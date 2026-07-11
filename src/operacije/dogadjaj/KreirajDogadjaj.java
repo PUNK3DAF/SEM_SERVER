@@ -8,7 +8,7 @@ public class KreirajDogadjaj extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Dogadjaj)) {
-            throw new Exception("Nije prosledjen validan dogadjaj!");
+            throw new Exception("Nije prosleđen validan događaj!");
         }
 
         Dogadjaj d = (Dogadjaj) param;
