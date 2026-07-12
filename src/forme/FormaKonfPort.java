@@ -38,7 +38,7 @@ public class FormaKonfPort extends javax.swing.JDialog {
 
         jLabel1.setText("Port:");
 
-        jButtonSacuvaj.setText("SACUVAJ");
+        jButtonSacuvaj.setText("SAČUVAJ");
         jButtonSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSacuvajActionPerformed(evt);
@@ -80,16 +80,16 @@ public class FormaKonfPort extends javax.swing.JDialog {
         try {
             port = Integer.parseInt(jTextFieldPort.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "PORT MORA DA BUDE BROJ!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "PORT MORA DA BUDE BROJ!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (port >= 0 && port <= 65535) {
             konfiguracija.Konfiguracija.getInstanca().setKonfiguracija("port", String.valueOf(port));
             konfiguracija.Konfiguracija.getInstanca().sacuvajIzmene();
-            JOptionPane.showMessageDialog(this, "PARAMETAR JE SACUVAN!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "PARAMETAR JE SAČUVAN!", "USPEH", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "NEPRAVILNA VREDNOST PORTA!", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "NEPRAVILNA VREDNOST PORTA!", "GREŠKA", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButtonSacuvajActionPerformed
