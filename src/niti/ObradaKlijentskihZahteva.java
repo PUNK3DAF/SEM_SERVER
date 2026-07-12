@@ -70,7 +70,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
                         } else if (prijavljeniAdmin == null || dbAn.getAdmin() == null
                                 || dbAn.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
-                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da obrisete ovaj ansambl."));
+                            odgovor.setOdgovor(new Exception("Nemate ovlašćenje da obrišete ovaj ansambl."));
                         } else {
                             controller.Controller.getInstanca().obrisiAnsambl(an);
                             odgovor.setOdgovor(null);
@@ -83,7 +83,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(new Exception("Ansambl ne postoji."));
                         } else if (prijavljeniAdmin == null || dbAn2.getAdmin() == null
                                 || dbAn2.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
-                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da azurirate ovaj ansambl."));
+                            odgovor.setOdgovor(new Exception("Nemate ovlašćenje da ažurirate ovaj ansambl."));
                         } else {
                             ansa.setAdmin(dbAn2.getAdmin());
                             controller.Controller.getInstanca().izmenaAnsambla(ansa);
@@ -101,7 +101,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                             odgovor.setOdgovor(new Exception("Clan ne postoji."));
                         } else if (prijavljeniAdmin == null || dbC.getAdmin() == null
                                 || dbC.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
-                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da obrisete ovog clana."));
+                            odgovor.setOdgovor(new Exception("Nemate ovlašćenje da obrišete ovog člana."));
                         } else {
                             controller.Controller.getInstanca().obrisiClanaDrustva(c);
                             odgovor.setOdgovor(null);
@@ -111,10 +111,10 @@ public class ObradaKlijentskihZahteva extends Thread {
                         ClanDrustva cln = (ClanDrustva) zahtev.getParametar();
                         ClanDrustva dbCln = controller.Controller.getInstanca().ucitajClanaDrustva(cln.getClanID());
                         if (dbCln == null) {
-                            odgovor.setOdgovor(new Exception("Clan ne postoji."));
+                            odgovor.setOdgovor(new Exception("Član ne postoji."));
                         } else if (prijavljeniAdmin == null || dbCln.getAdmin() == null
                                 || dbCln.getAdmin().getAdminID() != prijavljeniAdmin.getAdminID()) {
-                            odgovor.setOdgovor(new Exception("Nemate ovlascenje da azurirate ovog clana."));
+                            odgovor.setOdgovor(new Exception("Nemate ovlašćenje da ažurirate ovog člana."));
                         } else {
                             controller.Controller.getInstanca().izmeniClanaDrustva(cln);
                             odgovor.setOdgovor(null);
@@ -123,7 +123,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case KREIRAJ_CLANA_DRUSTVA:
                         ClanDrustva clan = (ClanDrustva) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje clana drustva."));
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje člana društva."));
                         } else {
                             clan.setAdmin(prijavljeniAdmin);
                             controller.Controller.getInstanca().kreirajClanaDrustva(clan);
@@ -139,7 +139,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                         ClanDrustva probe = (ClanDrustva) zahtev.getParametar();
                         ClanDrustva found = controller.Controller.getInstanca().ucitajClanaDrustva(probe.getClanID());
                         if (found == null) {
-                            odgovor.setOdgovor(new Exception("Clan ne postoji."));
+                            odgovor.setOdgovor(new Exception("Član ne postoji."));
                         } else {
                             odgovor.setOdgovor(found);
                         }
@@ -165,7 +165,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                     case KREIRAJ_ZANR:
                         Zanr zanr = (Zanr) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
-                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje zanra."));
+                            odgovor.setOdgovor(new Exception("Niste prijavljeni, nije dozvoljeno kreiranje žanra."));
                         } else {
                             controller.Controller.getInstanca().kreirajZanr(zanr);
                             odgovor.setOdgovor(null);
@@ -257,13 +257,11 @@ public class ObradaKlijentskihZahteva extends Thread {
                 primalac.close();
             }
         } catch (Exception ex) {
-            // Ignore close errors
         }
 
         try {
             socket.close();
         } catch (IOException ex) {
-            // Ignore socket close errors
         }
         interrupt();
     }
