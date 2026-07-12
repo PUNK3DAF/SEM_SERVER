@@ -11,7 +11,7 @@ public class ObrisiAnsambl extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Ansambl)) {
-            throw new Exception("Sistem ne moze da obrise ansambl.");
+            throw new Exception("Sistem ne može da obriše ansambl.");
         }
     }
 
