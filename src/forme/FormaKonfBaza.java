@@ -49,7 +49,7 @@ public class FormaKonfBaza extends javax.swing.JDialog {
 
         jLabel3.setText("Password:");
 
-        jButton1.setText("SACUVAJ");
+        jButton1.setText("SAČUVAJ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -114,7 +114,7 @@ public class FormaKonfBaza extends javax.swing.JDialog {
         konfiguracija.Konfiguracija.getInstanca().setKonfiguracija("password", password);
 
         konfiguracija.Konfiguracija.getInstanca().sacuvajIzmene();
-        JOptionPane.showMessageDialog(this, "Parametri su sacuvani!", "USPESNO", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Parametri su sačuvani!", "USPEŠNO", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
