@@ -37,7 +37,7 @@ import operacije.dogadjaj.ObrisiDogadjaj;
 import operacije.dogadjaj.UcitajDogadjaje;
 import operacije.mesto.KreirajMesto;
 import operacije.mesto.UcitajMesta;
-import servis.EmailService;
+import servis.EmailSlanje;
 
 /**
  *
@@ -228,7 +228,7 @@ public class Controller {
 
     private void pokreniSlanjeMejlovaZaDogadjaj(Dogadjaj d) {
         try {
-            new EmailService().posaljiObavestenjeODogadjaju(d, ucitajUcesca());
+            new EmailSlanje().posaljiObavestenjeODogadjaju(d, ucitajUcesca());
         } catch (Exception ex) {
             System.err.println("Slanje mejla za događaj nije uspelo: " + ex.getMessage());
             ex.printStackTrace();
