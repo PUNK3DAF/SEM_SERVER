@@ -22,9 +22,14 @@ public class EmailSlanje {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 
     public void posaljiObavestenjeODogadjaju(Dogadjaj dogadjaj, List<Ucesce> ucesca) throws Exception {
+        posaljiObavestenjeODogadjaju(dogadjaj, ucesca, false);
+    }
+
+    public void posaljiObavestenjeODogadjaju(Dogadjaj dogadjaj, List<Ucesce> ucesca, boolean azuriran) throws Exception {
         List<String> adrese = prikupiAdreseZaDogadjaj(dogadjaj, ucesca);
         System.out.println("[MAIL] Događaj=" + (dogadjaj == null ? "null" : dogadjaj.getNaziv())
                 + ", ansamblId=" + (dogadjaj == null || dogadjaj.getAnsambl() == null ? "null" : dogadjaj.getAnsambl().getAnsamblID())
+                + ", azuriran=" + azuriran
                 + ", broj_primalaca=" + adrese.size());
         if (adrese.isEmpty()) {
             System.out.println("[MAIL] Nema primalaca za slanje. Proveri učešća i članEmail.");
@@ -77,8 +82,8 @@ public class EmailSlanje {
                 + ", starttls=" + props.getProperty("mail.smtp.starttls.enable")
                 + ", from=" + from);
 
-        String subject = napraviNaslov(dogadjaj);
-        String body = napraviTelo(dogadjaj);
+        String subject = napraviNaslov(dogadjaj, azuriran);
+        String body = napraviTelo(dogadjaj, azuriran);
 
         for (String adresa : adrese) {
             if (!EMAIL_PATTERN.matcher(adresa).matches()) {
@@ -120,21 +125,30 @@ public class EmailSlanje {
         return new ArrayList<>(adrese);
     }
 
-    private String napraviNaslov(Dogadjaj dogadjaj) {
+    private String napraviNaslov(Dogadjaj dogadjaj, boolean azuriran) {
         String naziv = (dogadjaj == null || dogadjaj.getNaziv() == null || dogadjaj.getNaziv().trim().isEmpty())
                 ? "Događaj" : dogadjaj.getNaziv().trim();
         return "Obaveštenje o događaju: " + naziv;
     }
 
-    private String napraviTelo(Dogadjaj dogadjaj) {
+    String napraviTelo(Dogadjaj dogadjaj, boolean azuriran) {
         StringBuilder sb = new StringBuilder();
         sb.append("Poštovani,\n\n");
-        sb.append("Kreiran je novi događaj za ansambl.\n\n");
+        if (azuriran) {
+            sb.append("Događaj je ažuriran za ansambl.\n\n");
+        } else {
+            sb.append("Kreiran je novi događaj za ansambl.\n\n");
+        }
         sb.append("Naziv: ").append(dogadjaj == null || dogadjaj.getNaziv() == null ? "" : dogadjaj.getNaziv()).append("\n");
         sb.append("Datum: ").append(dogadjaj == null || dogadjaj.getDatum() == null ? "" : dogadjaj.getDatum()).append("\n");
         sb.append("Mesto: ").append(dogadjaj == null || dogadjaj.getMesto() == null ? "" : dogadjaj.getMesto().getNaziv()).append("\n");
         sb.append("Ansambl: ").append(dogadjaj == null || dogadjaj.getAnsambl() == null ? "" : dogadjaj.getAnsambl().getImeAnsambla()).append("\n\n");
+        sb.append("Molimo vas da proverite promene u kalendaru.\n\n");
         sb.append("Pozdrav.");
         return sb.toString();
+    }
+
+    private String napraviTelo(Dogadjaj dogadjaj) {
+        return napraviTelo(dogadjaj, false);
     }
 }

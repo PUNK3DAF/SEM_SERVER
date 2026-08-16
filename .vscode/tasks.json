@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "SEM_SERVER tests",
+			"type": "shell",
+			"command": "ant test",
+			"isBackground": false,
+			"problemMatcher": [
+				"$ant"
+			],
+			"group": "test"
+		},
+		{
+			"label": "sem_server_tests",
+			"type": "shell",
+			"command": "ant test",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [
+				"$ant"
+			],
+			"group": "test"
+		}
+	]
+}

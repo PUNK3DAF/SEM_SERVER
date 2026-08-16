@@ -219,6 +219,7 @@ public class Controller {
     public void izmeniDogadjaj(Dogadjaj d) throws Exception {
         IzmeniDogadjaj op = new IzmeniDogadjaj();
         op.izvrsi(d, null);
+        pokreniSlanjeMejlovaZaDogadjaj(d, true);
     }
 
     public void obrisiDogadjaj(Dogadjaj d) throws Exception {
@@ -227,8 +228,12 @@ public class Controller {
     }
 
     private void pokreniSlanjeMejlovaZaDogadjaj(Dogadjaj d) {
+        pokreniSlanjeMejlovaZaDogadjaj(d, false);
+    }
+
+    private void pokreniSlanjeMejlovaZaDogadjaj(Dogadjaj d, boolean azuriran) {
         try {
-            new EmailSlanje().posaljiObavestenjeODogadjaju(d, ucitajUcesca());
+            new EmailSlanje().posaljiObavestenjeODogadjaju(d, ucitajUcesca(), azuriran);
         } catch (Exception ex) {
             System.err.println("Slanje mejla za događaj nije uspelo: " + ex.getMessage());
             ex.printStackTrace();
