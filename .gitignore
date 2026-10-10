@@ -1,2 +1,5 @@
 /build/
 /dist/
+/config/config.properties
+*.local
+*.env
