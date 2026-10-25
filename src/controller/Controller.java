@@ -34,6 +34,7 @@ import operacije.uloga.UcitajUloge;
 import operacije.dogadjaj.IzmeniDogadjaj;
 import operacije.dogadjaj.KreirajDogadjaj;
 import operacije.dogadjaj.ObrisiDogadjaj;
+import operacije.dogadjaj.UcitajDogadjaj;
 import operacije.dogadjaj.UcitajDogadjaje;
 import operacije.mesto.KreirajMesto;
 import operacije.mesto.UcitajMesta;
@@ -214,6 +215,15 @@ public class Controller {
         } catch (Exception ex) {
         }
         return op.getDogadjaji();
+    }
+
+    public Dogadjaj ucitajDogadjaj(int dogadjajId) throws Exception {
+        Dogadjaj probe = new Dogadjaj();
+        probe.setDogadjajID(dogadjajId);
+
+        UcitajDogadjaj op = new UcitajDogadjaj();
+        op.izvrsi(probe, null);
+        return op.getDogadjaj();
     }
 
     public void izmeniDogadjaj(Dogadjaj d) throws Exception {

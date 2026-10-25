@@ -214,6 +214,12 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<Dogadjaj> dogadjaji = controller.Controller.getInstanca().ucitajDogadjaje();
                         odgovor.setOdgovor(dogadjaji);
                         break;
+                    case UCITAJ_DOGADJAJ:
+                        Dogadjaj probeDogadjaj = (Dogadjaj) zahtev.getParametar();
+                        Dogadjaj dogadjajUcitan = controller.Controller.getInstanca()
+                                .ucitajDogadjaj(probeDogadjaj.getDogadjajID());
+                        odgovor.setOdgovor(dogadjajUcitan);
+                        break;
                     case IZMENI_DOGADJAJ:
                         Dogadjaj dogadjajIzmena = (Dogadjaj) zahtev.getParametar();
                         if (prijavljeniAdmin == null) {
