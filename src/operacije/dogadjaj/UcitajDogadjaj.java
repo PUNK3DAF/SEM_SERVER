@@ -23,9 +23,17 @@ public class UcitajDogadjaj extends ApstraktnaGenerickaOperacija {
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         Dogadjaj probe = (Dogadjaj) param;
-        List<Dogadjaj> dogadjaji = (List<Dogadjaj>) (List<?>) broker.getAll(
-                new Dogadjaj(), " WHERE dogadjaj.dogadjajID=" + probe.getDogadjajID());
-        dogadjaj = dogadjaji == null || dogadjaji.isEmpty() ? null : dogadjaji.get(0);
+        List<Dogadjaj> dogadjaji = (List<Dogadjaj>) (List<?>) broker.getAll(new Dogadjaj(), null);
+        dogadjaj = null;
+
+        if (dogadjaji != null) {
+            for (Dogadjaj ucitan : dogadjaji) {
+                if (ucitan != null && ucitan.getDogadjajID() == probe.getDogadjajID()) {
+                    dogadjaj = ucitan;
+                    return;
+                }
+            }
+        }
     }
 
     public Dogadjaj getDogadjaj() {
