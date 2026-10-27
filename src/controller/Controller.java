@@ -31,7 +31,7 @@ import operacije.zanr.KreirajZanr;
 import operacije.zanr.UcitajZanrove;
 import operacije.uloga.KreirajUlogu;
 import operacije.uloga.UcitajUloge;
-import operacije.dogadjaj.IzmeniDogadjaj;
+import operacije.dogadjaj.IzmenaDogadjaja;
 import operacije.dogadjaj.KreirajDogadjaj;
 import operacije.dogadjaj.ObrisiDogadjaj;
 import operacije.dogadjaj.UcitajDogadjaj;
@@ -227,7 +227,7 @@ public class Controller {
     }
 
     public void izmeniDogadjaj(Dogadjaj d) throws Exception {
-        IzmeniDogadjaj op = new IzmeniDogadjaj();
+        IzmenaDogadjaja op = new IzmenaDogadjaja();
         op.izvrsi(d, null);
         pokreniSlanjeMejlovaZaDogadjaj(d, true);
     }

@@ -3,7 +3,7 @@ package operacije.dogadjaj;
 import domen.Dogadjaj;
 import operacije.ApstraktnaGenerickaOperacija;
 
-public class IzmeniDogadjaj extends ApstraktnaGenerickaOperacija {
+public class IzmenaDogadjaja extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(Object param) throws Exception {
